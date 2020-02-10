@@ -1,10 +1,10 @@
 <script>
 	import { generateName, tokens } from './NameGenerator.js'
 
-	let pattern = '("Thor"|"Gol")("grim"|"findel")'
+	let pattern = 'cvS'
 	let visible = false
 	let names = []
-	let numberToGenerate = 1
+	let numberToGenerate = 40
 
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
