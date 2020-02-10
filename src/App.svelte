@@ -16,7 +16,7 @@
 		{ title: 'Exotic', pattern: 'fc h\'Vl' },
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
-		{ title: 'Dwarven test', pattern: '("Thor"|"Gol")("grim"|"findel")' },
+		{ title: 'Dwarven name (test)', pattern: 'cws"grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth"' },
 	]
 
 	$:sortedTokens = tokens.sort( (a, b) => {
@@ -148,7 +148,16 @@
 	.name-list {
 		max-width: 100%;
 		display: grid;
-		grid-template-columns: repeat(4, 1fr);
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	@media screen and (min-width: 64em) {
+		/* medium or greater */
+		.name-list {
+			max-width: 100%;
+			display: grid;
+			grid-template-columns: repeat(4, 1fr);
+		}
 	}
 
 	.name-list .item {
@@ -157,11 +166,8 @@
 
 	.examples {
 		display: flex;
-		flex-direction: row;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
 		justify-content: center;
-		align-content: stretch;
-		align-items: flex-start;
 	}
 
 	.example-item {
