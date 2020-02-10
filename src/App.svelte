@@ -1,5 +1,6 @@
 <script>
 	import { generateName, tokens } from './NameGenerator.js'
+	import { slide } from 'svelte/transition';
 
 	let pattern = 'cvS'
 	let visible = false
@@ -16,7 +17,7 @@
 		{ title: 'Exotic', pattern: 'fc h\'Vl' },
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
-		{ title: 'Dwarven name (test)', pattern: 'cws"grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth"' },
+		{ title: 'Dwarven name (test)', pattern: 'cvs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")  ("Stone"|"Gold"|"Iron"|"Copper"|"Mountain"|"Hill"|"Fire")("Shield"|"Axe"|"Tooth"|"Hammer"|"Forge"|"Hearth")' },
 	]
 
 	$:sortedTokens = tokens.sort( (a, b) => {
@@ -72,8 +73,8 @@
 	Help
 </button>
 <br>
-
-<div class:visible class="help-text">
+{#if visible}
+<div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
 	<p>
 		Using a combination of the tokens listed below, you can generate a variety of different names (The randomness
 		will mean that not every name is as useful as others)
@@ -92,7 +93,7 @@
 		<dd>A sub expression</dd>
 	</dl>
 </div>
-
+{/if}
 <input class="pattern-input" type="text" bind:value={pattern}/>
 <button on:click={regenNames}>
 	Refresh
