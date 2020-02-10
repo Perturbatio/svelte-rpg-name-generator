@@ -1,4 +1,3 @@
-import OldProcessor from './OldProcessor.js'
 import Vowel from './operations/vowel_op.js'
 import VowelPair from './operations/vowel_pair_op.js'
 import Consonant from './operations/consonant_op.js'
@@ -12,9 +11,9 @@ import ElfFemaleStart from './operations/elf_female_start_op.js'
 import ElfFemaleEnd from './operations/elf_female_end_op.js'
 import HardConsonant from './operations/hard_consonant_op.js'
 import SoftSyllable from './operations/soft_syllable_op.js'
-import {tokenizerFactory} from './tokenizer/Tokenizer'
-import {process} from './Processor'
-import SoftSyllablePairs from './operations/soft_syllable_with_pairs_op';
+import { tokenizerFactory } from './tokenizer/Tokenizer'
+import { process } from './Processor'
+import SoftSyllablePairs from './operations/soft_syllable_with_pairs_op'
 
 const ops = [
     new Vowel,
@@ -36,13 +35,14 @@ const ops = [
 let tokenizer = tokenizerFactory( ops )
 
 export const tokens = ops.map( op => {
-    return {token: op.token, description: op.description}
+    return { token: op.token, description: op.description }
 } )
 
-export function generateName( pattern ) {
-    if ( pattern.length ) {
-        return process( tokenizer.tokenize( pattern ).tokens )
-    } else {
-    	return 'no pattern'
-	}
+export function generateName(pattern) {
+    if (pattern.length) {
+        let tokens = tokenizer.tokenize( pattern ).tokens
+        console.log(tokens);
+        return process( tokens )
+    }
+    return 'no pattern'
 }

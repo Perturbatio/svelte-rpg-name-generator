@@ -4,7 +4,7 @@
 	let pattern = 'fl(c|(vv|(c|v)))'
 	let visible = false
 	let names = []
-	let numberToGenerate = 20
+	let numberToGenerate = 1
 
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},

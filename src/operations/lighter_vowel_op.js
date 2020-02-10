@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class LighterVowel {
 	
 	get token(){
@@ -12,6 +13,6 @@ export default class LighterVowel {
 		exclude = (exclude) ? exclude.split('') : [];
 		let values = [ 'a','e','a','e','a','e','a','e','a','e','a','e','a','e','a','e','i','o','u' ].filter((v) => !exclude.includes(v));
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

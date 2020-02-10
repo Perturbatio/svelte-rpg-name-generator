@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class VowelPair {
 	get token(){
 		return 'V';
@@ -10,12 +11,13 @@ export default class VowelPair {
 	handle(){
 		let vowels = 'aeiou'.split('');
 		let preventDoublesOf = ['a', 'i', 'u'];
-		let result = vowels[parseInt(Math.random()*vowels.length, 10)];
+
+		let result = vowels[rand( 0, vowels.length - 1 )];
 
 		if (preventDoublesOf.includes(result)){
 			vowels = vowels.filter((v) => v !== result);
 		}
-		return result + vowels[parseInt(Math.random()*vowels.length, 10)];
+		return result + vowels[rand( 0, vowels.length - 1 )];
 
 	}
 }

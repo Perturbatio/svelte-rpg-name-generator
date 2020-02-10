@@ -1,6 +1,7 @@
 import Vowel from './vowel_op'
 import SoftConsonant from './soft_consonant_op'
 
+import { rand } from './../helpers/random'
 export default class SoftSyllable {
     get token() {
         return 'y'

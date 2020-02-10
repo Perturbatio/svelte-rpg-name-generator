@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class Consonant {
 	get token(){
 		return 'c';
@@ -10,6 +11,6 @@ export default class Consonant {
 	handle(){
 		let values = "bcdfghjklmnpqrstvwxyz".split('');
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

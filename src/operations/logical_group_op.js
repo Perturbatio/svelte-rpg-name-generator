@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class LogicalGroup {
     get token() {
         return 'g'
@@ -15,6 +16,6 @@ export default class LogicalGroup {
             'zha', 'zhe', 'zhè', 'zhi', 'zho', 'zhu'
         ]
 
-        return values[parseInt( Math.random() * values.length, 10 )]
+        return values[rand( 0, values.length - 1 )]
     }
 }

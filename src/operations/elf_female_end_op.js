@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class ElfFemaleEnd {
 	get token(){
 		return 'l';
@@ -30,6 +31,6 @@ export default class ElfFemaleEnd {
 			'wen', 'wel',
 		];
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

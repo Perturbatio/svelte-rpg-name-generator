@@ -1,6 +1,7 @@
 import {Token} from './Token'
 import {tokenTypes} from './tokenTypes'
 
+
 /**
  *
  */
@@ -81,28 +82,28 @@ export class Tokenizer {
                     stringBuffer += char
                 } else {
                     this._insideString = false
-                    this._tokens.push( new Token( tokenTypes.string, stringBuffer, depth ) )
+                    this._tokens.push( new Token( tokenTypes.string, stringBuffer, depth, index ) )
                     stringBuffer = ''
                 }
             } else {
 
                 if ( this.isOperation( char ) ) {
-                    this._tokens.push( new Token( tokenTypes.operation, this.getOperation( char ), depth ) )
+                    this._tokens.push( new Token( tokenTypes.operation, this.getOperation( char ), depth, index ) )
                 } else if ( this.isLeftParenthesis( char ) ) {
                     console.log(char)
-                    this._tokens.push( new Token( tokenTypes.subExpressionStart, char, depth ) )
+                    this._tokens.push( new Token( tokenTypes.subExpressionStart, char, depth, index ) )
                     depth++
                 } else if ( this.isRightParenthesis( char ) ) {
                     console.log(char)
                     depth--
-                    this._tokens.push( new Token( tokenTypes.subExpressionEnd, char, depth ) )
+                    this._tokens.push( new Token( tokenTypes.subExpressionEnd, char, depth, index ) )
                 } else if ( this.isOr( char ) ) {
-                    this._tokens.push( new Token( tokenTypes.or, char, depth ) )
+                    this._tokens.push( new Token( tokenTypes.or, char, depth, index ) )
                 } else if ( this.isStringStart( char ) ) {
                     this._insideString = true
                     stringStartPos = index
                 } else if ( this.isPrintableChar( char ) ) {
-                    this._tokens.push( new Token( tokenTypes.string, char, depth ) )
+                    this._tokens.push( new Token( tokenTypes.string, char, depth, index ) )
                 }
             }
 
@@ -114,7 +115,7 @@ export class Tokenizer {
             //console.log( this, stringBuffer, lookahead )
             console.log( `Unterminated string literal starting at position ${stringStartPos}` )
         }
-        console.log(this)
+
         return this
     }
 
@@ -202,17 +203,6 @@ export class Tokenizer {
     }
 }
 
-function* idMaker() {
-    var index = 0
-    while ( true )
-        yield 'tkn_' + (index++)
-}
-
-/**
- *
- * @type {Generator<string, void, ?>}
- */
-const idGenerator = idMaker()
 
 /**
  *

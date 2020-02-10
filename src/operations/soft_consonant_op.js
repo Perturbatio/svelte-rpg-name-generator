@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class SoftConsonant {
 	get token(){
 		return 's';
@@ -10,6 +11,6 @@ export default class SoftConsonant {
 	handle(){
 		let values = "cfghjlmnrswy".split('');
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

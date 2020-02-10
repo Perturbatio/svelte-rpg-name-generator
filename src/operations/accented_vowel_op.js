@@ -1,3 +1,5 @@
+import { rand } from './../helpers/random'
+
 export default class AccentedVowel {
 	
 	get token(){
@@ -26,6 +28,6 @@ export default class AccentedVowel {
 
 		values = valueString.split('').filter((v) => !exclude.includes(v));
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

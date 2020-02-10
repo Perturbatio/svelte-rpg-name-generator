@@ -14,6 +14,7 @@ import HardConsonant from './operations/hard_consonant_op.js';
 import SoftSyllable from './operations/soft_syllable_op.js';
 import {tokenizerFactory} from './tokenizer/Tokenizer'
 import {process} from './Processor'
+import {flip} from './helpers/random'
 
 const ops = [
 	new Vowel,
@@ -75,21 +76,18 @@ function readString(pattern, cursor){
 	return {result, cursor};
 }
 
-function flipCoin(){
-	return !!Math.round(Math.random())
-}
 
 function handleOr(lookahead, current, result, cursor, pattern){
     lookahead = read(pattern, cursor+1); // find the char after the OR
 
     if (opProcessor.has(current) && opProcessor.has(lookahead)){
-        result += flipCoin() ? opProcessor.run(current) : opProcessor.run(lookahead);
+        result += flip() ? opProcessor.run(current) : opProcessor.run(lookahead);
         cursor += 2;// skip ahead
     } else if (lookahead === stringDelimiter){ // String
 
         let stringValue = readString(pattern, cursor+2);
 			
-        if (flipCoin()){
+        if (flip()){
             result += stringValue.result;
         } else {
             result += opProcessor.run(current);
@@ -140,7 +138,7 @@ function run(pattern){
 				
 				if ( lookahead === orDelimiter ){
 					//console.log('OR');
-					let flipResult = flipCoin();
+					let flipResult = flip();
 					let lookahead2 = read(pattern, cursor+1);
 					if ( lookahead2 === stringDelimiter ){ // ugly OR for strings
 						//console.log('String');

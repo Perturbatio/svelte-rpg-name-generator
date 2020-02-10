@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class ElfFemaleStart {
 	get token(){
 		return 'f';
@@ -20,6 +21,6 @@ export default class ElfFemaleStart {
 
 		];
 		
-		return values[parseInt(Math.random()*values.length, 10)]
+		return values[rand(0, values.length-1)]
 	}
 }

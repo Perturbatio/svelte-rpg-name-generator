@@ -1,3 +1,4 @@
+import { rand } from './../helpers/random'
 export default class SoftConsonantPair {
     get token() {
         return 'S'
@@ -13,7 +14,6 @@ export default class SoftConsonantPair {
             'ff', 'ss', 'hy', 'fl', 'yl',
             'ph', 'hn', 'hm'
         ]
-
-        return values[parseInt( Math.random() * values.length, 10 )]
+        return values[rand( 0, values.length - 1 )]
     }
 }
