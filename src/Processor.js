@@ -4,6 +4,7 @@ import {rand} from './helpers/random'
 export class Processor {
     constructor(tokens) {
         this._tokens = tokens
+        console.log('processor tokens', JSON.stringify(this._tokens))
     }
 
     process() {
@@ -13,18 +14,16 @@ export class Processor {
 
         let depth = this._tokens[0].depth
         let result = ''
-        let currentString = ''
         let subExpressionEndIndex = 0
-        let orResult = []
         let stringStack = []
         let isProcessingOr = false
         let commitOr = false
         let previous
 
         this._tokens.forEach( (token, index) => {
-
+            console.log( 'index:', index);
             if (index < subExpressionEndIndex) {
-                return
+                return result;
             }
 
             if (index > 0) {
@@ -42,6 +41,8 @@ export class Processor {
 
             isProcessingOr = (tokenIsOr || lookAheadIsOr || previousIsOr)
 
+    // console.log( token.type);
+
             switch (token.type) {
                 case tokenTypes.string:
                     if (isProcessingOr) {
@@ -58,17 +59,21 @@ export class Processor {
                     }
                     break
                 case tokenTypes.subExpressionStart:
+                    console.log( 'sub expression started' );
                     // find all tokens between this start and the subexpression end
                     let subTokens = this._getSubTokens( index + 1, depth )
-                    let subValue = process( subTokens )
 
-                    subExpressionEndIndex = index + subTokens.length
+                    subExpressionEndIndex = index + subTokens.length+1
+                    console.log({ subExpressionEndIndex, subTokens})
                     if (isProcessingOr) {
-                        stringStack.push( subValue )
+                        stringStack.push( process( subTokens, 'sub' ) )
                     } else {
-                        result = result + subValue
+                        result = result + process( subTokens, 'sub' )
                     }
                     break
+                case tokenTypes.subExpressionEnd:
+                    console.log('sub expression ended');
+                break;
             }
 
             if ((!isProcessingOr && stringStack.length) || isProcessingOr && index === this._tokens.length - 1) {
@@ -93,7 +98,10 @@ export class Processor {
 
     _getSubTokens(start, depth) {
         let expressionEnded = false
-        return this._tokens.splice( start ).filter( (token, index) => {
+        return this._tokens.filter( (token, index) => {
+            if (index < start ){
+                return false;
+            }
             if (token.depth === depth) {
                 expressionEnded = true
             }
@@ -113,7 +121,10 @@ function* idMaker() {
  * @type {Generator<string, void, ?>}
  */
 const idGenerator = idMaker()
-export function process(tokens) {
-    console.log( idGenerator.next().value );
-    return (new Processor( tokens )).process()
+export function process(tokens, id = 'root') {
+    id = `${id}_${idGenerator.next().value}`
+    let processor = new Processor( tokens )
+    processor.id = id;
+    console.log(processor);
+    return processor.process()
 }
