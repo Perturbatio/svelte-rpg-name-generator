@@ -1,4 +1,5 @@
 import { rand } from './../helpers/random'
+
 export default class SoftConsonantPair {
     get token() {
         return 'S'
@@ -10,9 +11,11 @@ export default class SoftConsonantPair {
 
     handle() {
         let values = [
-            'll', 'ly', 'sh', 'zh', 'yr', 'fy',
-            'ff', 'ss', 'hy', 'fl', 'yl',
-            'ph', 'hn', 'hm'
+            'ff', 'fl', 'fy',
+            'gh', 'gn',
+            'hm', 'hn', 'hy',
+            'll', 'ly', 'lm',
+            'ng', 'ph', 'sh', 'ss', 'yl', 'yr', 'zh',
         ]
         return values[rand( 0, values.length - 1 )]
     }

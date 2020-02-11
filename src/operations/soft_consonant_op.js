@@ -9,7 +9,7 @@ export default class SoftConsonant {
 	}
 	
 	handle(){
-		let values = "cfghjlmnrswy".split('');
+		let values = "fghjlmnrswy".split('');
 		
 		return values[rand(0, values.length-1)]
 	}

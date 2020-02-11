@@ -1,6 +1,7 @@
 <script>
 	import { generateName, tokens } from './NameGenerator.js'
 	import { slide } from 'svelte/transition';
+	import DarkMode from './components/DarkMode.svelte'
 
 	let pattern = 'cvS'
 	let visible = false
@@ -69,6 +70,7 @@
 	}
 
 </script>
+<DarkMode/>
 <button on:click={toggleHelp}>
 	Help
 </button>
@@ -163,6 +165,7 @@
 
 	.name-list .item {
 		word-wrap: break-word;
+		padding: 0.25rem 0.5rem;
 	}
 
 	.examples {
