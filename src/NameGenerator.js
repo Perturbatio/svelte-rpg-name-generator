@@ -41,7 +41,7 @@ export const tokens = ops.map( op => {
 export function generateName(pattern) {
     if (pattern.length) {
         let tokens = tokenizer.tokenize( pattern ).tokens
-        console.log(tokens);
+        //console.log(tokens);
         return process( tokens )
     }
     return 'no pattern'

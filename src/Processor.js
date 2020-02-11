@@ -4,7 +4,6 @@ import {rand} from './helpers/random'
 export class Processor {
     constructor(tokens) {
         this._tokens = tokens
-        console.log('processor tokens', JSON.stringify(this._tokens))
     }
 
     process() {
@@ -21,7 +20,6 @@ export class Processor {
         let previous
 
         this._tokens.forEach( (token, index) => {
-            console.log( 'index:', index);
             if (index < subExpressionEndIndex) {
                 return result;
             }
@@ -59,12 +57,11 @@ export class Processor {
                     }
                     break
                 case tokenTypes.subExpressionStart:
-                    console.log( 'sub expression started' );
                     // find all tokens between this start and the subexpression end
                     let subTokens = this._getSubTokens( index + 1, depth )
 
                     subExpressionEndIndex = index + subTokens.length+1
-                    console.log({ subExpressionEndIndex, subTokens})
+
                     if (isProcessingOr) {
                         stringStack.push( process( subTokens, 'sub' ) )
                     } else {
@@ -125,6 +122,6 @@ export function process(tokens, id = 'root') {
     id = `${id}_${idGenerator.next().value}`
     let processor = new Processor( tokens )
     processor.id = id;
-    console.log(processor);
+
     return processor.process()
 }

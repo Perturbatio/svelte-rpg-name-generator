@@ -98,7 +98,7 @@
 <button on:click={regenNames}>
 	Refresh
 </button>
-<label for="number_to_generate">Number to generate<input type="number" bind:value={numberToGenerate}
+<label for="number_to_generate">Number to generate: <input type="number" bind:value={numberToGenerate}
 														 id="number_to_generate"/></label><br>
 
 <div class="name-list">

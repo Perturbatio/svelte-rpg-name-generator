@@ -90,11 +90,9 @@ export class Tokenizer {
                 if ( this.isOperation( char ) ) {
                     this._tokens.push( new Token( tokenTypes.operation, this.getOperation( char ), depth, index ) )
                 } else if ( this.isLeftParenthesis( char ) ) {
-                    console.log(char)
                     this._tokens.push( new Token( tokenTypes.subExpressionStart, char, depth, index ) )
                     depth++
                 } else if ( this.isRightParenthesis( char ) ) {
-                    console.log(char)
                     depth--
                     this._tokens.push( new Token( tokenTypes.subExpressionEnd, char, depth, index ) )
                 } else if ( this.isOr( char ) ) {
@@ -113,7 +111,7 @@ export class Tokenizer {
         // check for unterminated strings
         if ( this._insideString ) { // if we never finished the string
             //console.log( this, stringBuffer, lookahead )
-            console.log( `Unterminated string literal starting at position ${stringStartPos}` )
+            console.error( `Unterminated string literal starting at position ${stringStartPos}` )
         }
 
         return this
