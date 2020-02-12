@@ -77,8 +77,6 @@
 		return result
 	}
 
-
-
 </script>
 <DarkMode bind:enabled={darkMode}/>
 <button on:click={toggleHelp}>
