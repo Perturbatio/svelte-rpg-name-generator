@@ -105,7 +105,9 @@
 	</dl>
 </div>
 {/if}
-<input class="pattern-input" type="text" bind:value={pattern}/>
+<div>
+	<textarea class="pattern-input" type="text" bind:value={pattern}/>
+</div>
 <button on:click={() => names = generateNamesList(pattern)}>
 	Refresh
 </button>
@@ -132,6 +134,8 @@
 </div>
 <style>
 	.pattern-input {
+		max-width: 100%;
+		min-width: 20rem;
 		width: 100%;
 	}
 
