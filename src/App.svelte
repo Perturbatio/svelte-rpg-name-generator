@@ -43,12 +43,6 @@
 		setUserSettings( userSettings )
 	}
 
-// on pattern change
-// 	$: {
-// 		userSettings.pattern = pattern;
-// 		setUserSettings( userSettings )
-// 	}
-
 	$: names = generateNamesList( pattern )
 
 	/**
