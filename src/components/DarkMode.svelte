@@ -27,7 +27,7 @@
 	:global(body textarea ) {
 		background-color: #fff;
 		color: #222;
-		transition: background-color, color .5s;
+		transition: background-color, color 1s;
 	}
 	:global(body.dark-mode),
 	:global(body.dark-mode input),
@@ -37,7 +37,7 @@
 		/* this will apply to <body> */
 		background-color: #333;
 		color: #eee;
-		transition: background-color, color 2s;
+		transition: background-color, color 1s;
 	}
 
 	.dark-mode-toggle:not(.enabled) {

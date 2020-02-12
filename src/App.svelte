@@ -1,17 +1,19 @@
 <script>
-	import { getUserSettings, setUserSettings} from './stores/userSettings.store'
+	import { getUserSettings, setUserSettings } from './stores/userSettings.store'
 	import { generateName, tokens } from './NameGenerator.js'
-	import { slide } from 'svelte/transition';
+	import { slide } from 'svelte/transition'
 	import DarkMode from './components/DarkMode.svelte'
+	import PatternEditor from './components/PatternEditor.svelte'
+	import { onMount, tick } from 'svelte'
 
 	let userSettings = getUserSettings()
-	let darkMode = userSettings.darkMode || false;
-	let pattern = userSettings.pattern || 'cvS'
+	let darkMode = userSettings.darkMode || false
+	let pattern = ''
 	let numberToGenerate = userSettings.numberToGenerate || 40
 
 	let visible = false
 	let names = []
-
+	let space = ' '; // hack to prevent IDE auto-trimming spaces inside template strings
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
 		// {title: 'sub test', pattern: '"test"(c|v)'},
@@ -22,7 +24,22 @@
 		{ title: 'Exotic', pattern: 'fc h\'Vl' },
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
-		{ title: 'Dwarven name (test)', pattern: '(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")  ("Stone"|"Gold"|"Iron"|"Copper"|"Mountain"|"Hill"|"Fire")("Shield"|"Axe"|"Tooth"|"Hammer"|"Forge"|"Hearth")' },
+		{
+			title: 'Dwarven name (test)', pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
+${space}
+(
+"Stone"|"Gold"|"Iron"|"Copper"|
+"silver"|"Mountain"|"Hill"|"Fire"|"cold"|
+"Golden"
+)
+
+(
+"Shield"|"Axe"|"Tooth"|"Hammer"|
+"Forge"|"Hearth"|"House"|"Helm"|
+"Heart"|"shaper"|"biter"|"eater"|
+"Fist"|"splitter"|"crusher"|"cleaver"
+)`,
+		},
 	]
 
 	$:sortedTokens = tokens.sort( (a, b) => {
@@ -37,11 +54,23 @@
 	} )
 
 	$: {
-		userSettings.darkMode = darkMode;
-		userSettings.pattern = pattern;
-		userSettings.numberToGenerate = numberToGenerate;
+		userSettings.darkMode = darkMode
+		userSettings.pattern = pattern
+		userSettings.numberToGenerate = numberToGenerate
 		setUserSettings( userSettings )
+		if (pattern){
+			history.pushState('','RPG Name Generator - pattern', encodeURI( `?pattern=${pattern}` ))
+		}
 	}
+
+	onMount( async () => {
+		await tick();
+		let params = new URLSearchParams(window.location.search);
+		console.log( window.location.search, params.get('pattern'), params);
+		let linkPattern = params.get( 'pattern' );
+
+		pattern = linkPattern || userSettings.pattern || 'cvS'
+	} );
 
 	$: names = generateNamesList( pattern )
 
@@ -100,7 +129,7 @@
 </div>
 {/if}
 <div>
-	<textarea class="pattern-input" type="text" bind:value={pattern}/>
+<PatternEditor bind:pattern={pattern}/>
 </div>
 <button on:click={() => names = generateNamesList(pattern)}>
 	Refresh
@@ -127,11 +156,6 @@
 	{/each}
 </div>
 <style>
-	.pattern-input {
-		max-width: 100%;
-		min-width: 20rem;
-		width: 100%;
-	}
 
 	.help-text {
 		display: none;
@@ -183,5 +207,8 @@
 
 	.example-item {
 		margin: 0 0.5rem;
+	}
+	:global(.dark-mode-toggle){
+		float:right;
 	}
 </style>
