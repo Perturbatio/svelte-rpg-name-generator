@@ -22,7 +22,7 @@
 		{ title: 'Exotic', pattern: 'fc h\'Vl' },
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
-		{ title: 'Dwarven name (test)', pattern: 'cvs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")  ("Stone"|"Gold"|"Iron"|"Copper"|"Mountain"|"Hill"|"Fire")("Shield"|"Axe"|"Tooth"|"Hammer"|"Forge"|"Hearth")' },
+		{ title: 'Dwarven name (test)', pattern: '(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")  ("Stone"|"Gold"|"Iron"|"Copper"|"Mountain"|"Hill"|"Fire")("Shield"|"Axe"|"Tooth"|"Hammer"|"Forge"|"Hearth")' },
 	]
 
 	$:sortedTokens = tokens.sort( (a, b) => {
