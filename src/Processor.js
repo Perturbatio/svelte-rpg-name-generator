@@ -34,7 +34,7 @@ export class Processor {
             let previousIsOr = !!previous && this.isOr( previous )
 
             if ((tokenIsOr && lookAheadIsOr) || (previousIsOr && tokenIsOr)) {
-                throw new Error( `Double OR encountered at position ${index}` )
+                console.error( `Double OR encountered at position ${index}` )
             }
 
             isProcessingOr = (tokenIsOr || lookAheadIsOr || previousIsOr)
