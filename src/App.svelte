@@ -1,12 +1,16 @@
 <script>
+	import { getUserSettings, setUserSettings} from './stores/userSettings.store'
 	import { generateName, tokens } from './NameGenerator.js'
 	import { slide } from 'svelte/transition';
 	import DarkMode from './components/DarkMode.svelte'
 
-	let pattern = 'cvS'
+	let userSettings = getUserSettings()
+	let darkMode = userSettings.darkMode || false;
+	let pattern = userSettings.pattern || 'cvS'
+	let numberToGenerate = userSettings.numberToGenerate || 40
+
 	let visible = false
 	let names = []
-	let numberToGenerate = 40
 
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
@@ -31,6 +35,21 @@
 		// a must be equal to b
 		return 0
 	} )
+
+	$: {
+		userSettings.darkMode = darkMode;
+		userSettings.pattern = pattern;
+		userSettings.numberToGenerate = numberToGenerate;
+		setUserSettings( userSettings )
+	}
+
+// on pattern change
+// 	$: {
+// 		userSettings.pattern = pattern;
+// 		setUserSettings( userSettings )
+// 	}
+
+	$: names = generateNamesList( pattern )
 
 	/**
 	 * Capitalize all words
@@ -58,23 +77,15 @@
 		return result
 	}
 
-	$:names = generateNamesList( pattern )
 
-	function regenNames() {
-		names = generateNamesList( pattern )
-	}
-
-	function setPattern(value) {
-		pattern = value
-		regenNames()
-	}
 
 </script>
-<DarkMode/>
+<DarkMode bind:enabled={darkMode}/>
 <button on:click={toggleHelp}>
 	Help
 </button>
 <br>
+
 {#if visible}
 <div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
 	<p>
@@ -97,7 +108,7 @@
 </div>
 {/if}
 <input class="pattern-input" type="text" bind:value={pattern}/>
-<button on:click={regenNames}>
+<button on:click={() => names = generateNamesList(pattern)}>
 	Refresh
 </button>
 <label for="number_to_generate">Number to generate: <input type="number" bind:value={numberToGenerate}
@@ -117,7 +128,7 @@
 <div class="examples">
 	{#each examples as example}
 		<div class="example-item">
-			<button on:click={() => setPattern(example.pattern)} title={example.pattern}>{example.title}</button>
+			<button on:click={() => (pattern = example.pattern)} title={example.pattern}>{example.title}</button>
 		</div>
 	{/each}
 </div>
