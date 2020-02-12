@@ -10,11 +10,7 @@ export default class ElfFemaleEnd {
 	
 	handle(){
 		let values = [
-			'al',
-			'adia',
-			'alia',
-			'aria',
-			'ana',
+			'al', 'adia', 'alia', 'aria', 'ana',
 
 			'el',
 
@@ -23,11 +19,13 @@ export default class ElfFemaleEnd {
 			'la', 'lla', 'lai', 'lar', 'laria', 'lia', 'lieth', 'liel',
 
 			'mial',
+
 			'neth',
 
 			'thial', 'thiel',
 
 			'rial', 'riel',
+
 			'wen', 'wel',
 		];
 		
