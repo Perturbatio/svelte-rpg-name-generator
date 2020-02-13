@@ -79,11 +79,9 @@ ${space}
 	} )
 
 	$: names = (()=>{
-		let result = []
-		for (let i = 0; i < numberToGenerate; i++) {
-			result.push( capitalize( generateName( pattern ) ) )
+		if (numberToGenerate > 0){
+			return generateNamesList(pattern)
 		}
-		return result
 	})()
 
 	/**
@@ -139,6 +137,9 @@ ${space}
 
 <div class="pattern-controls">
 	<div class="primary">
+		<button on:click={() => names = generateNamesList(pattern)}>
+			Refresh
+		</button>
 		<label for="number_to_generate">Number to generate:
 			<input
 					type="number"
