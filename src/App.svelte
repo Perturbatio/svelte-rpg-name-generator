@@ -8,24 +8,13 @@
 	import NameList from './components/NameList.svelte'
 	import TokenHelp from './components/TokenHelp.svelte'
 
-	let userSettings = getUserSettings()
+	//------------------[ Interal Vars ]------------------//
 
+	let userSettings = getUserSettings()
 	let darkMode = userSettings.darkMode || false
 	let pattern = userSettings.pattern || 'cvS'
 	let numberToGenerate = userSettings.numberToGenerate || 20
-
-	/**
-	 * */
-	$: notificationThemes = { // These are the defaults
-		danger: '#bb2124',
-		success: (darkMode) ? '#fff' : '#7a9a74',
-		warning: '#f0ad4e',
-		info: '#5bc0de',
-		default: '#aaa', // relates to simply '.show()'
-	}
 	let notificationDisplay
-
-	let helpVisible = false
 	let names = []
 	let space = ' ' // hack to prevent IDE auto-trimming spaces inside template strings
 	let patternUrlInput
@@ -56,10 +45,21 @@ ${space}
 )`,
 		},
 	]
+	//------------------[ REACTIVE PROPS ]------------------//
 
-
+	/**
+	 * */
+	$: notificationThemes = { // These are the defaults
+		danger: '#bb2124',
+		success: (darkMode) ? '#fff' : '#7a9a74',
+		warning: '#f0ad4e',
+		info: '#5bc0de',
+		default: '#aaa', // relates to simply '.show()'
+	}
+	// auto generate the pattern uri each time the pattern changes
 	$: patternURI = encodeURI( `${window.location.origin}?pattern=${pattern}` )
 
+	// auto save the user settings each time something changes
 	$: {
 		if (numberToGenerate < 1) {
 			numberToGenerate = 1
@@ -78,6 +78,9 @@ ${space}
 		pattern = linkPattern || userSettings.pattern
 	} )
 
+	/**
+	* Dynamically re-calculate the names (requires the variables to be referred to in the function
+	***/
 	$: names = (()=>{
 		if (numberToGenerate > 0){
 			return generateNamesList(pattern)
@@ -93,13 +96,6 @@ ${space}
 	function capitalize(value) {
 		return value.split( ' ' )
 				.map( v => (v.length) ? v[0].toUpperCase() + v.substr( 1 ).toLowerCase() : '' ).join( ' ' )
-	}
-
-	/**
-	 *
-	 */
-	function toggleHelp() {
-		helpVisible = !helpVisible
 	}
 
 	function generateNamesList(pattern) {
@@ -124,33 +120,20 @@ ${space}
 </script>
 
 <NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
-
 <DarkMode bind:enabled={darkMode}/>
+<TokenHelp {tokens}/>
+<PatternEditor bind:pattern={pattern}/>
 
-<button on:click={toggleHelp}>
-	Help
+<button on:click={() => names = generateNamesList(pattern)}>
+	Refresh
 </button>
-<TokenHelp visible={helpVisible} tokens={tokens}/>
-<div>
-	<PatternEditor bind:pattern={pattern}/>
-</div>
+<label for="number_to_generate">Number to generate:
+	<input
+			type="number"
+			bind:value={numberToGenerate}
+			id="number_to_generate" min="1"
+	/></label>
 
-<div class="pattern-controls">
-	<div class="primary">
-		<button on:click={() => names = generateNamesList(pattern)}>
-			Refresh
-		</button>
-		<label for="number_to_generate">Number to generate:
-			<input
-					type="number"
-					bind:value={numberToGenerate}
-					id="number_to_generate" min="1"
-			/></label>
-
-	</div>
-	<div class="secondary">
-	</div>
-</div>
 
 <NameList names={names}/>
 
@@ -171,15 +154,6 @@ ${space}
 	</label>
 </div>
 <style>
-
-	.help-text {
-		display: none;
-	}
-
-	.help-text.visible {
-		display: block;
-	}
-
 	.examples {
 		display: flex;
 		flex-wrap: wrap;
@@ -193,18 +167,6 @@ ${space}
 
 	:global(.dark-mode-toggle) {
 		float: right;
-	}
-
-	.pattern-controls {
-
-	}
-
-	.pattern-controls .primary {
-		display: block;
-	}
-
-	.pattern-controls .secondary {
-		display: block;
 	}
 
 	.pattern-url input {

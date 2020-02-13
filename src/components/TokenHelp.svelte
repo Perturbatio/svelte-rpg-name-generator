@@ -16,6 +16,9 @@
 	} )
 </script>
 
+<button on:click={() => visible = !visible}>
+	Help
+</button>
 {#if visible}
 	<div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
 		<p>

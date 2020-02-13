@@ -2,11 +2,13 @@
 	export let pattern
 </script>
 
-<label>
+<div>
+	<label>
 	<textarea
 			class="pattern-input"
 			bind:value={pattern}></textarea>
-</label>
+	</label>
+</div>
 
 <style>
 	.pattern-input {
