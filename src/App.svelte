@@ -166,7 +166,7 @@ ${space}
 	<div class="secondary">
 		<div class="pattern-url">
 			<label>Pattern URL: <input type="url" value="{patternURI}" bind:this={patternUrlInput}/>
-				<button on:click={copyPatternUri}>Copy</button></label>
+				<button on:click={copyPatternUri}>Copy Pattern URL</button></label>
 		</div>
 	</div>
 </div>
@@ -250,21 +250,17 @@ ${space}
 	}
 
 	.pattern-controls {
-		display: grid;
-		grid-template-columns: repeat(16, 1fr)
+
 	}
 	.pattern-controls .primary {
-		grid-column-start: 1;
-		grid-column-end: 8;
+		display: block;
 	}
 	.pattern-controls .secondary {
-		grid-column-start: 9;
-		grid-column-end: 17;
-		text-align: right;
-		align-self: end;
+		display: block;
 	}
 	.pattern-url input {
 		margin-right: 0.5rem;
+		width: 80%;
 	}
 	:global(.dark-mode .toasts .toast .content){
 		color: #000;
