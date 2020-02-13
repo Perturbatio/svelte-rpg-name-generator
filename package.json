@@ -8,8 +8,10 @@
     "start": "sirv public"
   },
   "devDependencies": {
+    "@beyonk/svelte-notifications": "^2.0.3",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
+    "lz-string": "^1.4.4",
     "rollup": "^1.20.0",
     "rollup-plugin-livereload": "^1.0.0",
     "rollup-plugin-svelte": "^5.0.3",

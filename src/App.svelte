@@ -5,15 +5,28 @@
 	import DarkMode from './components/DarkMode.svelte'
 	import PatternEditor from './components/PatternEditor.svelte'
 	import { onMount, tick } from 'svelte'
+	import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 
 	let userSettings = getUserSettings()
+
 	let darkMode = userSettings.darkMode || false
-	let pattern = ''
+	let pattern = userSettings.pattern || 'cvS'
 	let numberToGenerate = userSettings.numberToGenerate || 40
+/**
+* */
+	$: notificationThemes = { // These are the defaults
+		danger: '#bb2124',
+		success: (darkMode) ? '#ffffff' : '#7a9a74',
+		warning: '#f0ad4e',
+		info: '#5bc0de',
+		default: '#aaa' // relates to simply '.show()'
+	}
+	let notificationDisplay;
 
 	let visible = false
 	let names = []
 	let space = ' '; // hack to prevent IDE auto-trimming spaces inside template strings
+	let patternUrlInput;
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
 		// {title: 'sub test', pattern: '"test"(c|v)'},
@@ -53,23 +66,21 @@ ${space}
 		return 0
 	} )
 
+	$: patternURI = encodeURI( `${window.location.origin}?pattern=${pattern}` )
+
 	$: {
 		userSettings.darkMode = darkMode
 		userSettings.pattern = pattern
 		userSettings.numberToGenerate = numberToGenerate
 		setUserSettings( userSettings )
-		if (pattern){
-			history.pushState('','RPG Name Generator - pattern', encodeURI( `?pattern=${pattern}` ))
-		}
 	}
 
 	onMount( async () => {
 		await tick();
-		let params = new URLSearchParams(window.location.search);
-		console.log( window.location.search, params.get('pattern'), params);
-		let linkPattern = params.get( 'pattern' );
 
-		pattern = linkPattern || userSettings.pattern || 'cvS'
+		let linkPattern = new URLSearchParams( window.location.search ).get( 'pattern' );
+
+		pattern = linkPattern || userSettings.pattern
 	} );
 
 	$: names = generateNamesList( pattern )
@@ -100,12 +111,26 @@ ${space}
 		return result
 	}
 
+	function copyPatternUri(){
+		patternUrlInput.select();
+		patternUrlInput.setSelectionRange( 0, patternURI.length )
+		if (document.execCommand( "copy" )) {
+			notifier.success( 'Copied!', 1500 )
+		} else {
+			notifier.warning( 'Unable to copy to clipboard, this might be caused by your browser\'s security settings. (you can still copy it manually)', 2500 )
+		}
+		patternUrlInput.setSelectionRange( 0, 0 )
+	}
+
 </script>
+
+<NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
+
 <DarkMode bind:enabled={darkMode}/>
+
 <button on:click={toggleHelp}>
 	Help
 </button>
-<br>
 
 {#if visible}
 <div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
@@ -129,11 +154,23 @@ ${space}
 </div>
 {/if}
 <div>
-<PatternEditor bind:pattern={pattern}/>
+	<PatternEditor bind:pattern={pattern}/>
 </div>
-<button on:click={() => names = generateNamesList(pattern)}>
-	Refresh
-</button>
+
+<div class="pattern-controls">
+	<div class="primary">
+		<button on:click={() => names = generateNamesList(pattern)}>
+			Refresh
+		</button>
+	</div>
+	<div class="secondary">
+		<div class="pattern-url">
+			<label>Pattern URL: <input type="url" value="{patternURI}" bind:this={patternUrlInput}/>
+				<button on:click={copyPatternUri}>Copy</button></label>
+		</div>
+	</div>
+</div>
+
 <label for="number_to_generate">Number to generate: <input type="number" bind:value={numberToGenerate}
 														 id="number_to_generate"/></label><br>
 
@@ -210,5 +247,26 @@ ${space}
 	}
 	:global(.dark-mode-toggle){
 		float:right;
+	}
+
+	.pattern-controls {
+		display: grid;
+		grid-template-columns: repeat(16, 1fr)
+	}
+	.pattern-controls .primary {
+		grid-column-start: 1;
+		grid-column-end: 8;
+	}
+	.pattern-controls .secondary {
+		grid-column-start: 9;
+		grid-column-end: 17;
+		text-align: right;
+		align-self: end;
+	}
+	.pattern-url input {
+		margin-right: 0.5rem;
+	}
+	:global(.dark-mode .toasts .toast .content){
+		color: #000;
 	}
 </style>
