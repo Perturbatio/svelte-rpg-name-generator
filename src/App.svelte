@@ -1,32 +1,34 @@
 <script>
 	import { getUserSettings, setUserSettings } from './stores/userSettings.store'
 	import { generateName, tokens } from './NameGenerator.js'
-	import { slide } from 'svelte/transition'
 	import DarkMode from './components/DarkMode.svelte'
 	import PatternEditor from './components/PatternEditor.svelte'
 	import { onMount, tick } from 'svelte'
 	import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+	import NameList from './components/NameList.svelte'
+	import TokenHelp from './components/TokenHelp.svelte'
 
 	let userSettings = getUserSettings()
 
 	let darkMode = userSettings.darkMode || false
 	let pattern = userSettings.pattern || 'cvS'
-	let numberToGenerate = userSettings.numberToGenerate || 40
-/**
-* */
+	let numberToGenerate = userSettings.numberToGenerate || 20
+
+	/**
+	 * */
 	$: notificationThemes = { // These are the defaults
 		danger: '#bb2124',
-		success: (darkMode) ? '#ffffff' : '#7a9a74',
+		success: (darkMode) ? '#fff' : '#7a9a74',
 		warning: '#f0ad4e',
 		info: '#5bc0de',
-		default: '#aaa' // relates to simply '.show()'
+		default: '#aaa', // relates to simply '.show()'
 	}
-	let notificationDisplay;
+	let notificationDisplay
 
-	let visible = false
+	let helpVisible = false
 	let names = []
-	let space = ' '; // hack to prevent IDE auto-trimming spaces inside template strings
-	let patternUrlInput;
+	let space = ' ' // hack to prevent IDE auto-trimming spaces inside template strings
+	let patternUrlInput
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
 		// {title: 'sub test', pattern: '"test"(c|v)'},
@@ -55,35 +57,34 @@ ${space}
 		},
 	]
 
-	$:sortedTokens = tokens.sort( (a, b) => {
-		if (a.token.toLowerCase() < b.token.toLowerCase()) {
-			return -1
-		}
-		if (a.token.toLowerCase() > b.token.toLowerCase()) {
-			return 1
-		}
-		// a must be equal to b
-		return 0
-	} )
 
 	$: patternURI = encodeURI( `${window.location.origin}?pattern=${pattern}` )
 
 	$: {
+		if (numberToGenerate < 1) {
+			numberToGenerate = 1
+		}
 		userSettings.darkMode = darkMode
 		userSettings.pattern = pattern
 		userSettings.numberToGenerate = numberToGenerate
 		setUserSettings( userSettings )
 	}
 
-	onMount( async () => {
-		await tick();
+	onMount( async() => {
+		await tick()
 
-		let linkPattern = new URLSearchParams( window.location.search ).get( 'pattern' );
+		let linkPattern = new URLSearchParams( window.location.search ).get( 'pattern' )
 
 		pattern = linkPattern || userSettings.pattern
-	} );
+	} )
 
-	$: names = generateNamesList( pattern )
+	$: names = (()=>{
+		let result = []
+		for (let i = 0; i < numberToGenerate; i++) {
+			result.push( capitalize( generateName( pattern ) ) )
+		}
+		return result
+	})()
 
 	/**
 	 * Capitalize all words
@@ -100,7 +101,7 @@ ${space}
 	 *
 	 */
 	function toggleHelp() {
-		visible = !visible
+		helpVisible = !helpVisible
 	}
 
 	function generateNamesList(pattern) {
@@ -111,8 +112,8 @@ ${space}
 		return result
 	}
 
-	function copyPatternUri(){
-		patternUrlInput.select();
+	function copyPatternUri() {
+		patternUrlInput.select()
 		patternUrlInput.setSelectionRange( 0, patternURI.length )
 		if (document.execCommand( "copy" )) {
 			notifier.success( 'Copied!', 1500 )
@@ -131,56 +132,26 @@ ${space}
 <button on:click={toggleHelp}>
 	Help
 </button>
-
-{#if visible}
-<div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
-	<p>
-		Using a combination of the tokens listed below, you can generate a variety of different names (The randomness
-		will mean that not every name is as useful as others)
-	</p>
-	<dl class="token-list">
-		{#each sortedTokens as kw}
-			<dt>{kw.token}</dt>
-			<dd>{kw.description}</dd>
-		{/each}
-
-		<dt>|</dt>
-		<dd>OR operator</dd>
-		<dt>"value"</dt>
-		<dd>Literal string value</dd>
-		<dt>(expression)</dt>
-		<dd>A sub expression</dd>
-	</dl>
-</div>
-{/if}
+<TokenHelp visible={helpVisible} tokens={tokens}/>
 <div>
 	<PatternEditor bind:pattern={pattern}/>
 </div>
 
 <div class="pattern-controls">
 	<div class="primary">
-		<button on:click={() => names = generateNamesList(pattern)}>
-			Refresh
-		</button>
+		<label for="number_to_generate">Number to generate:
+			<input
+					type="number"
+					bind:value={numberToGenerate}
+					id="number_to_generate" min="1"
+			/></label>
+
 	</div>
 	<div class="secondary">
-		<div class="pattern-url">
-			<label>Pattern URL: <input type="url" value="{patternURI}" bind:this={patternUrlInput}/>
-				<button on:click={copyPatternUri}>Copy Pattern URL</button></label>
-		</div>
 	</div>
 </div>
 
-<label for="number_to_generate">Number to generate: <input type="number" bind:value={numberToGenerate}
-														 id="number_to_generate"/></label><br>
-
-<div class="name-list">
-	{#each names as name}
-		<div class="item">
-			{name}
-		</div>
-	{/each}
-</div>
+<NameList names={names}/>
 
 <h2>
 	Examples
@@ -192,6 +163,12 @@ ${space}
 		</div>
 	{/each}
 </div>
+
+<div class="pattern-url">
+	<label>Pattern URL: <input type="url" value="{patternURI}" bind:this={patternUrlInput}/>
+		<button on:click={copyPatternUri}>Copy Pattern URL</button>
+	</label>
+</div>
 <style>
 
 	.help-text {
@@ -202,67 +179,39 @@ ${space}
 		display: block;
 	}
 
-	.token-list {
-		display: grid;
-		grid-template-columns: 1fr 15fr;
-	}
-
-	.token-list dt {
-		font-weight: bold;
-		text-align: right;
-	}
-
-	.token-list dd {
-		text-align: left;
-	}
-
-	.name-list {
-		max-width: 100%;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-	}
-
-	@media screen and (min-width: 64em) {
-		/* medium or greater */
-		.name-list {
-			max-width: 100%;
-			display: grid;
-			grid-template-columns: repeat(4, 1fr);
-		}
-	}
-
-	.name-list .item {
-		word-wrap: break-word;
-		padding: 0.25rem 0.5rem;
-	}
-
 	.examples {
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
+		margin-bottom: 2rem;
 	}
 
 	.example-item {
 		margin: 0 0.5rem;
 	}
-	:global(.dark-mode-toggle){
-		float:right;
+
+	:global(.dark-mode-toggle) {
+		float: right;
 	}
 
 	.pattern-controls {
 
 	}
+
 	.pattern-controls .primary {
 		display: block;
 	}
+
 	.pattern-controls .secondary {
 		display: block;
 	}
+
 	.pattern-url input {
 		margin-right: 0.5rem;
 		width: 80%;
 	}
-	:global(.dark-mode .toasts .toast .content){
+
+	:global(.dark-mode .toasts .toast .content) {
 		color: #000;
 	}
 </style>
