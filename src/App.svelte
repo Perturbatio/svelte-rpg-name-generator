@@ -1,12 +1,14 @@
 <script>
+	import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
+	import { onMount, tick } from 'svelte'
+
 	import { getUserSettings, setUserSettings } from './stores/userSettings.store'
 	import { generateName, tokens } from './NameGenerator.js'
 	import DarkMode from './components/DarkMode.svelte'
 	import PatternEditor from './components/PatternEditor.svelte'
-	import { onMount, tick } from 'svelte'
-	import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
 	import NameList from './components/NameList.svelte'
 	import TokenHelp from './components/TokenHelp.svelte'
+	import Examples from './components/Examples.svelte'
 
 	//------------------[ Interal Vars ]------------------//
 
@@ -16,35 +18,7 @@
 	let numberToGenerate = userSettings.numberToGenerate || 20
 	let notificationDisplay
 	let names = []
-	let space = ' ' // hack to prevent IDE auto-trimming spaces inside template strings
 	let patternUrlInput
-	let examples = [
-		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
-		// {title: 'sub test', pattern: '"test"(c|v)'},
-		{ title: 'Simple name', pattern: 'cvS' },
-		{ title: 'Alternating string endings', pattern: 'cvSv|c"ni"|"ane"|"nia"|"ellia"' },
-		{ title: 'Optional strings', pattern: '"Illy"|"Al"Vcv' },
-		{ title: 'Elf Female', pattern: 'fl' },
-		{ title: 'Exotic', pattern: 'fc h\'Vl' },
-		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
-		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
-		{
-			title: 'Dwarven name (test)', pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
-${space}
-(
-"Stone"|"Gold"|"Iron"|"Copper"|
-"silver"|"Mountain"|"Hill"|"Fire"|"cold"|
-"Golden"
-)
-
-(
-"Shield"|"Axe"|"Tooth"|"Hammer"|
-"Forge"|"Hearth"|"House"|"Helm"|
-"Heart"|"shaper"|"biter"|"eater"|
-"Fist"|"splitter"|"crusher"|"cleaver"
-)`,
-		},
-	]
 	//------------------[ REACTIVE PROPS ]------------------//
 
 	/**
@@ -72,18 +46,15 @@ ${space}
 
 	onMount( async() => {
 		await tick()
-
-		let linkPattern = new URLSearchParams( window.location.search ).get( 'pattern' )
-
-		pattern = linkPattern || userSettings.pattern
+		pattern = new URLSearchParams( window.location.search ).get( 'pattern' ) || userSettings.pattern
 	} )
 
 	/**
-	* Dynamically re-calculate the names (requires the variables to be referred to in the function
-	***/
-	$: names = (()=>{
-		if (numberToGenerate > 0){
-			return generateNamesList(pattern)
+	 * Dynamically re-calculate the names (requires the variables to be referred to in the function
+	 ***/
+	$: names = (() => {
+		if (numberToGenerate > 0) {
+			return generateNamesList( pattern )
 		}
 	})()
 
@@ -116,7 +87,6 @@ ${space}
 		}
 		patternUrlInput.setSelectionRange( 0, 0 )
 	}
-
 </script>
 
 <NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
@@ -128,43 +98,22 @@ ${space}
 	Refresh
 </button>
 <label for="number_to_generate">Number to generate:
-	<input
-			type="number"
-			bind:value={numberToGenerate}
-			id="number_to_generate" min="1"
-	/></label>
-
+<input
+	type="number"
+	bind:value={numberToGenerate}
+	id="number_to_generate" min="1"
+/></label>
 
 <NameList names={names}/>
-
-<h2>
-	Examples
-</h2>
-<div class="examples">
-	{#each examples as example}
-		<div class="example-item">
-			<button on:click={() => (pattern = example.pattern)} title={example.pattern}>{example.title}</button>
-		</div>
-	{/each}
-</div>
+<Examples bind:pattern={pattern}/>
 
 <div class="pattern-url">
 	<label>Pattern URL: <input type="url" value="{patternURI}" bind:this={patternUrlInput}/>
 		<button on:click={copyPatternUri}>Copy Pattern URL</button>
 	</label>
 </div>
+
 <style>
-	.examples {
-		display: flex;
-		flex-wrap: wrap;
-		justify-content: center;
-		margin-bottom: 2rem;
-	}
-
-	.example-item {
-		margin: 0 0.5rem;
-	}
-
 	:global(.dark-mode-toggle) {
 		float: right;
 	}
