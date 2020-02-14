@@ -9,6 +9,7 @@
 	import NameList from './components/NameList.svelte'
 	import TokenHelp from './components/TokenHelp.svelte'
 	import Examples from './components/Examples.svelte'
+	import enforceNumericConstraints from './directives/actions/enforceNumericConstraints'
 
 	//------------------[ Internal Vars ]------------------//
 
@@ -99,7 +100,10 @@
 <input
 	type="number"
 	bind:value={numberToGenerate}
-	id="number_to_generate" min="1"
+	id="number_to_generate"
+	min="1"
+	max="100"
+	use:enforceNumericConstraints
 /></label>
 
 <NameList names={names}/>
