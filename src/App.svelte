@@ -10,7 +10,7 @@
 	import TokenHelp from './components/TokenHelp.svelte'
 	import Examples from './components/Examples.svelte'
 
-	//------------------[ Interal Vars ]------------------//
+	//------------------[ Internal Vars ]------------------//
 
 	let userSettings = getUserSettings()
 	let darkMode = userSettings.darkMode || false
@@ -53,9 +53,7 @@
 	 * Dynamically re-calculate the names (requires the variables to be referred to in the function
 	 ***/
 	$: names = (() => {
-		if (numberToGenerate > 0) {
-			return generateNamesList( pattern )
-		}
+		return numberToGenerate > 0 ? generateNamesList( pattern ) : []
 	})()
 
 	/**

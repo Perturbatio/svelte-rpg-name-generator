@@ -13,12 +13,12 @@
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
 		{
-			title: 'Dwarven name (test)', pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
+			title: 'Dwarven', pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
 ${space}
 (
 "Stone"|"Gold"|"Iron"|"Copper"|
 "silver"|"Mountain"|"Hill"|"Fire"|"cold"|
-"Golden"
+"Golden"|"Storm"|"Wind"
 )
 
 (
