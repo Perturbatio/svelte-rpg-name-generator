@@ -5,12 +5,17 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "dev-sirv": "rollup -c -w && sirv public",
-    "start": "sirv public"
+    "start": "sirv public",
+    "test": "jest src",
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage"
   },
   "devDependencies": {
     "@beyonk/svelte-notifications": "^2.0.3",
     "@rollup/plugin-commonjs": "^11.0.0",
     "@rollup/plugin-node-resolve": "^7.0.0",
+    "@testing-library/jest-dom": "^5.1.1",
+    "jest": "^25.1.0",
     "lodash": "^4.17.15",
     "lz-string": "^1.4.4",
     "rollup": "^1.20.0",
@@ -20,7 +25,11 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@babel/preset-env": "^7.8.4",
+    "@testing-library/svelte": "^1.11.0",
+    "babel-jest": "^25.1.0",
     "sirv-cli": "^0.4.4",
+    "svelte-jest": "^0.3.1",
     "svelte-persistent-store": "^0.1.1"
   }
 }

@@ -2,19 +2,9 @@
 	export let enabled = false;
 
 	$: buttonTitle = (enabled)? 'Toggle dark mode off' : 'Toggle dark mode on'
-
-	function toggleDarkMode(){
-		enabled = !enabled
-		setDarkMode();
-	}
-
-	function setDarkMode(){
-		window.document.body.classList.toggle( 'dark-mode', enabled )
-	}
-
-	setDarkMode();
+	$: window.document.body.classList.toggle( 'dark-mode', enabled );
 </script>
-<button class="dark-mode-toggle" on:click={toggleDarkMode} class:enabled title={buttonTitle}>
+<button role="switch" class="dark-mode-toggle" on:click={()=>{enabled = !enabled}} class:enabled title={buttonTitle} data-testid="darkmode-button">
 	{#if enabled}[LM]{:else}[DM]{/if}
 </button>
 
