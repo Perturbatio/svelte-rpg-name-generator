@@ -3,7 +3,7 @@
 	import { onMount, tick } from 'svelte'
 
 	import { getUserSettings, setUserSettings } from './stores/userSettings.store'
-	import { generateName, tokens } from './NameGenerator.js'
+	import { generateName, tokenDescriptions } from './NameGenerator.js'
 	import DarkMode from './components/DarkMode.svelte'
 	import PatternEditor from './components/PatternEditor.svelte'
 	import NameList from './components/NameList.svelte'
@@ -90,19 +90,17 @@
 
 <NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
 <DarkMode bind:enabled={darkMode}/>
-<TokenHelp {tokens}/>
+<TokenHelp tokenDescriptions=""{tokenDescriptions}/>
 <PatternEditor bind:pattern={pattern}/>
 
 <button on:click={() => names = generateNamesList(pattern)}>
 	Refresh
 </button>
-<label for="number_to_generate">Number to generate:
+<label class="number-to-generate">Number to generate:
 <input
 	type="number"
-	bind:value={numberToGenerate}
-	id="number_to_generate"
 	min="1"
-	max="100"
+	bind:value={numberToGenerate}
 	use:enforceNumericConstraints
 /></label>
 
@@ -127,5 +125,9 @@
 
 	:global(.dark-mode .toasts .toast .content) {
 		color: #000;
+	}
+
+	.number-to-generate input {
+		width: 5em;
 	}
 </style>

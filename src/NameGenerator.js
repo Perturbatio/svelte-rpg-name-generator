@@ -34,15 +34,22 @@ const ops = [
 
 let tokenizer = tokenizerFactory( ops )
 
-export const tokens = ops.map( op => {
+export const tokenDescriptions = ops.map( op => {
     return { token: op.token, description: op.description }
 } )
 
+let lastPattern = null;
+let tokens = [];
+
 export function generateName(pattern) {
-    if (pattern.length) {
-        let tokens = tokenizer.tokenize( pattern ).tokens
-        //console.log(tokens);
+    if (pattern) {
+        if (pattern !== lastPattern) { // if it's the same pattern as last time, just re-use the same tokens
+            tokens = tokenizer.tokenize( pattern ).tokens
+            lastPattern = pattern;
+        }
+
         return process( tokens )
+
     }
     return 'no pattern'
 }

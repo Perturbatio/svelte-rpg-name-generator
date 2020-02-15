@@ -2,16 +2,14 @@
 	import { slide } from 'svelte/transition'
 
 	export let visible = false
-	export let tokens = []
+	export let tokenDescriptions = []
 
-	$:sortedTokens = tokens.sort( (a, b) => {
+	$:sortedDescriptions = tokenDescriptions.sort( (a, b) => {
 		if (a.token.toLowerCase() < b.token.toLowerCase()) {
 			return -1
-		}
-		if (a.token.toLowerCase() > b.token.toLowerCase()) {
+		} else if (a.token.toLowerCase() > b.token.toLowerCase()) {
 			return 1
 		}
-		// a must be equal to b
 		return 0
 	} )
 </script>
@@ -27,7 +25,7 @@
 			will mean that not every name is as useful as others)
 		</p>
 		<dl class="token-list">
-			{#each sortedTokens as kw}
+			{#each sortedDescriptions as kw}
 				<dt>{kw.token}</dt>
 				<dd>{kw.description}</dd>
 			{/each}

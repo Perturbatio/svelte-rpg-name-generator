@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import { tokenTypes } from './tokenizer/tokenTypes'
 import {rand} from './helpers/random'
 
@@ -38,8 +39,6 @@ export class Processor {
             }
 
             isProcessingOr = (tokenIsOr || lookAheadIsOr || previousIsOr)
-
-    // console.log( token.type);
 
             switch (token.type) {
                 case tokenTypes.string:
@@ -106,22 +105,13 @@ export class Processor {
         } )
     }
 }
+let lastTokens = null;
+let processor = null;
 
-function* idMaker() {
-    var index = 0
-    while (true)
-        yield 'tkn_' + (index++)
-}
-
-/**
- *
- * @type {Generator<string, void, ?>}
- */
-const idGenerator = idMaker()
-export function process(tokens, id = 'root') {
-    id = `${id}_${idGenerator.next().value}`
-    let processor = new Processor( tokens )
-    processor.id = id;
+export function process(tokens) {
+    if (!(lastTokens && tokens && _.difference( tokens, lastTokens ).length === 0 && processor)) {
+        processor = new Processor( tokens )
+    }
 
     return processor.process()
 }
