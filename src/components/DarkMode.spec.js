@@ -24,7 +24,7 @@ test( '<DarkMode enabled={true} />', () => {
     expect( button.title ).toBe( 'Toggle dark mode off' )
 } )
 
-test( '<DarkMode is clickable and toggles mode />', async () => {
+test( '<DarkMode is clickable and toggles />', async () => {
     const wrapper = render( DarkMode, { props: { enabled: false } } )
 
 

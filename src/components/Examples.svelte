@@ -34,23 +34,24 @@ ${space}
 <h2>
 	Examples
 </h2>
-<div class="examples">
-	{#each examples as example}
-		<div class="example-item">
-			<button on:click={() => (pattern = example.pattern)} title={example.pattern}>{example.title}</button>
-		</div>
+<ul class="examples" data-testid="example-list">
+	{#each examples as example, index}
+		<li class="item">
+			<button on:click={() => (pattern = example.pattern)} title={example.pattern} data-testid={`example-item-${index}`}>{example.title}</button>
+		</li>
 	{/each}
-</div>
-
+</ul>
+{pattern}
 <style>
 .examples {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
-	margin-bottom: 2rem;
+	margin: 0 0 2rem;
 }
 
-.example-item {
+.item {
 	margin: 0 0.5rem;
+	list-style: none;
 }
 </style>

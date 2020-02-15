@@ -100,6 +100,7 @@
 <input
 	type="number"
 	min="1"
+	max="10000"
 	bind:value={numberToGenerate}
 	use:enforceNumericConstraints
 /></label>
@@ -112,6 +113,8 @@
 		<button on:click={copyPatternUri}>Copy Pattern URL</button>
 	</label>
 </div>
+
+<a id="app-source-link" href="https://github.com/Perturbatio/svelte-rpg-name-generator" title="View the application source (external link)">App source</a>
 
 <style>
 	:global(.dark-mode-toggle) {
@@ -130,4 +133,14 @@
 	.number-to-generate input {
 		width: 5em;
 	}
+
+	#app-source-link {
+		display: block;
+		width: 32px;
+		height: 32px;
+		text-indent: -200px;
+		overflow: hidden;
+		background-image: url('/assets/img/GitHub-Mark-32px.png');
+	}
+
 </style>
