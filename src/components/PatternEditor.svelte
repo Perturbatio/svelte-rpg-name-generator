@@ -6,7 +6,8 @@
 	<label>
 	<textarea
 			class="pattern-input"
-			bind:value={pattern}></textarea>
+			bind:value={pattern}
+			data-testid="pattern-input"></textarea>
 	</label>
 </div>
 

@@ -41,17 +41,18 @@ ${space}
 		</li>
 	{/each}
 </ul>
-{pattern}
-<style>
+
+<style lang="scss">
 .examples {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
 	margin: 0 0 2rem;
+
+	.item {
+		margin: 0 0.5rem;
+		list-style: none;
+	}
 }
 
-.item {
-	margin: 0 0.5rem;
-	list-style: none;
-}
 </style>

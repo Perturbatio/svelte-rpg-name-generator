@@ -1,6 +1,6 @@
-import Examples from './Examples.svelte'
-import { fireEvent, render } from "@testing-library/svelte"
 import '@testing-library/jest-dom/extend-expect'
+import { fireEvent, render } from "@testing-library/svelte"
+import Examples from './Examples.svelte'
 
 test( '<Examples /> renders a list', () => {
     let pattern = ''

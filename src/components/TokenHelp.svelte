@@ -14,20 +14,20 @@
 	} )
 </script>
 
-<button on:click={() => visible = !visible}>
+<button on:click={() => visible = !visible} data-testid="help-button">
 	Help
 </button>
 {#if visible}
-	<div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}">
+	<div class:visible class="help-text" transition:slide="{{delay: 0, duration: 300}}" data-testid="help-text">
 		<p>
 			Using a combination of the tokens listed below, you can generate a variety of different names (The
 			randomness
 			will mean that not every name is as useful as others)
 		</p>
-		<dl class="token-list">
-			{#each sortedDescriptions as kw}
-				<dt>{kw.token}</dt>
-				<dd>{kw.description}</dd>
+		<dl class="token-list" data-testid="help-token-list">
+			{#each sortedDescriptions as kw, index}
+				<dt data-testid={`token-keyword-${index}`}>{kw.token}</dt>
+				<dd data-testid={`token-description-${index}`}>{kw.description}</dd>
 			{/each}
 
 			<dt>|</dt>

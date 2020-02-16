@@ -10,12 +10,12 @@
 
 module.exports = {
     transform: {
-      "^.+\\.js$": "babel-jest",
-      "^.+\\.svelte$": "svelte-jest"
+        "^.+\\.js$": "babel-jest",
+        "^.+\\.svelte$": 'jest-transform-svelte',
     },
     moduleFileExtensions: ["js", "json", "svelte"],
     coverageReporters: ['html'],
     setupFilesAfterEnv: [
-        "@testing-library/jest-dom/extend-expect"
+        "@testing-library/jest-dom/extend-expect",
     ],
-};
+}

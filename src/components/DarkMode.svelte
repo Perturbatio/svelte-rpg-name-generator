@@ -9,7 +9,7 @@
 </button>
 
 <svelte:body class:dark-mode={enabled}/>
-<style type="text/css">
+<style>
 	:global(body),
 	:global(body input),
 	:global(body button:not(-toggle)),
@@ -24,7 +24,6 @@
 	:global(body.dark-mode button:not(.dark-mode-toggle)),
 	:global(body.dark-mode select),
 	:global(body.dark-mode textarea ) {
-		/* this will apply to <body> */
 		background-color: #333;
 		color: #eee;
 		transition: background-color, color 1s;
