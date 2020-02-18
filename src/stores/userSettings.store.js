@@ -1,6 +1,5 @@
 import { writable } from 'svelte-persistent-store/local'
 import { onDestroy } from 'svelte'
-import LZString from 'lz-string'
 
 // increment each time something changes to help migration of future settings
 export const SETTINGS_VERSION = 2;

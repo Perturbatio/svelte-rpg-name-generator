@@ -7,15 +7,15 @@ export class Token {
      * @param position {number}
      */
     constructor( type, value, depth, position) {
-        this._type = type
+        this._type = type || ""
         this._value = value
-        this._depth = depth
-        this._position = position
+        this._depth = depth || 0
+        this._position = position || 0
     }
 
     /**
      *
-     * @returns {*}
+     * @returns {string}
      */
     get type() {
         return this._type

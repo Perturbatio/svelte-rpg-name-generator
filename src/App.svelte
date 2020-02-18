@@ -17,7 +17,7 @@
 	let darkMode = userSettings.darkMode || false
 	let pattern = userSettings.pattern || 'cvS'
 	let numberToGenerate = userSettings.numberToGenerate || 20
-	let notificationDisplay
+	let notification
 	let names = []
 	let patternUrlInput
 	//------------------[ REACTIVE PROPS ]------------------//
@@ -88,7 +88,7 @@
 	}
 </script>
 
-<NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
+<NotificationDisplay bind:this={notification} themes={notificationThemes}/>
 <DarkMode bind:enabled={darkMode}/>
 <TokenHelp tokenDescriptions={tokenDescriptions}/>
 <PatternEditor bind:pattern={pattern}/>

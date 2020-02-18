@@ -40,14 +40,6 @@ export class Tokenizer {
         return this._operations.has( operation )
     }
 
-    /**
-     *
-     * @param token
-     * @returns {*}
-     */
-    handleOperation( token ) {
-        return this._operations.get( token ).handle()
-    }
 
     /**
      *
@@ -123,24 +115,6 @@ export class Tokenizer {
 
     getOperation( char ) {
         return this._operations.get( char )
-    }
-
-    /**
-     *
-     * @param char
-     * @returns {boolean}
-     */
-    isLetter( char ) {
-        return /[a-z]/i.test( char )
-    }
-
-    /**
-     *
-     * @param char
-     * @returns {boolean}
-     */
-    isOperator( char ) {
-        return /[|]/.test( char )
     }
 
     /**
