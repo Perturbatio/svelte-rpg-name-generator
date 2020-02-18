@@ -26,15 +26,12 @@ test( '<DarkMode enabled={true} />', () => {
 
 test( '<DarkMode is clickable and toggles />', async () => {
     const wrapper = render( DarkMode, { props: { enabled: false } } )
-
-
     let button = wrapper.getByTestId( 'darkmode-button' )
 
     expect( button.tagName ).toBe( 'BUTTON' )
     expect( button.textContent ).toBe( '[DM]' )
 
     await fireEvent.click( button );
-    // wrapper.debug()
 
     expect( wrapper.container.classList.contains('dark-mode')).toBe(true)
     expect( button.textContent ).toBe( '[LM]' )

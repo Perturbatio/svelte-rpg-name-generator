@@ -6,6 +6,7 @@
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
 		// {title: 'sub test', pattern: '"test"(c|v)'},
 		{ title: 'Simple name', pattern: 'cvS' },
+		{ title: 'Simple names', pattern: 'ysv (f|y)sv' },
 		{ title: 'Alternating string endings', pattern: 'cvSv|c"ni"|"ane"|"nia"|"ellia"' },
 		{ title: 'Optional strings', pattern: '"Illy"|"Al"Vcv' },
 		{ title: 'Elf Female', pattern: 'fl' },
@@ -13,7 +14,8 @@
 		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
 		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
 		{
-			title: 'Dwarven', pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
+			title: 'Dwarven',
+			pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
 ${space}
 (
 "Stone"|"Gold"|"Iron"|"Copper"|
@@ -28,6 +30,11 @@ ${space}
 "Fist"|"splitter"|"crusher"|"cleaver"
 )`,
 		},
+		{
+			title: 'Nordic',
+			pattern: `("aeg"|"ag"|"ag"|"alf"|"arn"|"bain"|"bal"|"bard"|"bern"|"brag"|"brand"|"dag"|"dom"|"dren"|"eg"|"ei"|"eir"|"erl"|"far"|"fast"|"folk"|"gal"|"gaut"|"geir"|"jar"|"jarl"|"joalf"|"joar"|"jofur"|"leif"|"leik"|"lif"|"lod"|"lom"|"mag"|"mor"|"mun"|"nar"|"ner"|"od"|"odd"|"orn"|"ott"|"rein"|"run"|"sax"|"sig"|"skar"|"ulf"|"val"|"van"|"var"|)
+("an"|"gor"|"goth"|"grin"|"ginn"|"dimarr"|"arr"|"fill"|"wold"|"vold"|"wald"|"vald"|"fast"|"rald"|"narr"|"dur"|"mund"|"ward"|"dan"|"ulf"|"wulf"|"xulf"|"olf"|"nald"|"sten"|"stan")`
+		}
 	]
 </script>
 

@@ -1,4 +1,5 @@
 import { rand } from './../helpers/random'
+
 export default class VowelPair {
 	get token(){
 		return 'V';
@@ -17,7 +18,7 @@ export default class VowelPair {
 		if (preventDoublesOf.includes(result)){
 			vowels = vowels.filter((v) => v !== result);
 		}
-		return result + vowels[rand( 0, vowels.length - 1 )];
 
+		return result + vowels[rand( 0, vowels.length - 1 )];
 	}
 }

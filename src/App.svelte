@@ -90,7 +90,7 @@
 
 <NotificationDisplay bind:this={notificationDisplay} themes={notificationThemes}/>
 <DarkMode bind:enabled={darkMode}/>
-<TokenHelp tokenDescriptions=""{tokenDescriptions}/>
+<TokenHelp tokenDescriptions={tokenDescriptions}/>
 <PatternEditor bind:pattern={pattern}/>
 
 <button on:click={() => names = generateNamesList(pattern)}>
@@ -141,6 +141,9 @@
 		text-indent: -200px;
 		overflow: hidden;
 		background-image: url('/assets/img/GitHub-Mark-32px.png');
+	}
+	:global(body.dark-mode) #app-source-link {
+		background-image: url('/assets/img/GitHub-Mark-Light-32px.png');
 	}
 
 </style>

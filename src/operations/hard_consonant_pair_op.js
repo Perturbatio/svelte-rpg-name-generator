@@ -1,15 +1,17 @@
 import { rand } from './../helpers/random'
 export default class HardConsonantPair {
 	get token(){
-		return 'h';
+		return 'H';
 	}
 	
 	get description(){
-		return 'A single hard consonant';
+		return 'A double hard consonant';
 	}
 	
 	handle(){
-		let values = "bcdgkpqtxz".split('');
+		let values = [
+		  'ck', 'dz', 'tz', 'cz', 'pt'
+        ];
 		
 		return values[rand(0, values.length-1)]
 	}

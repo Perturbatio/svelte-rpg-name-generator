@@ -7,6 +7,7 @@
     "dev-sirv": "rollup -c -w && sirv public",
     "start": "sirv public",
     "test": "jest src",
+    "test-parallel": "jest src --maxWorkers=8",
     "test:watch": "npm run test -- --watch",
     "test:coverage": "npm run test -- --coverage"
   },
