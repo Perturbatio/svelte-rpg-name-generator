@@ -29,19 +29,19 @@ test( 'rand returns values within the range', () => {
     min = 0
     max = 1
     value = rand( min, max )
-    console.log({testing:`rand(${min},${max})`, value})
+    // console.log({testing:`rand(${min},${max})`, value})
     expect( [min, max].includes( value ) ).toBe( true )
 
     min = 99
     max = 100
     value = rand( min, max )
-    console.log({testing:`rand(${min},${max})`, value})
+    // console.log({testing:`rand(${min},${max})`, value})
     expect( [min, max].includes( value ) ).toBe( true )
 
     min=0
     max=10000
     value = rand( min, max );
-    console.log({testing:`rand(${min},${max})`, value})
+    // console.log({testing:`rand(${min},${max})`, value})
     expect( value ).toBeLessThanOrEqual( max )
     expect(value).toBeGreaterThanOrEqual(min)
 } )
