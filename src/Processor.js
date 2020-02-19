@@ -62,13 +62,13 @@ export class Processor {
                     subExpressionEndIndex = index + subTokens.length+1
 
                     if (isProcessingOr) {
-                        stringStack.push( process( subTokens, 'sub' ) )
+                        stringStack.push( new Processor( subTokens ).process() )
                     } else {
-                        result = result + process( subTokens, 'sub' )
+                        result = result + new Processor( subTokens ).process()
                     }
                     break
                 case tokenTypes.subExpressionEnd:
-                    console.log('sub expression ended');
+                    //console.log('sub expression ended');
                 break;
             }
 
@@ -105,13 +105,7 @@ export class Processor {
         } )
     }
 }
-let lastTokens = null;
-let processor = null;
 
 export function process(tokens) {
-    if (!(lastTokens && tokens && _.difference( tokens, lastTokens ).length === 0 && processor)) {
-        processor = new Processor( tokens )
-    }
-
-    return processor.process()
+    return new Processor( tokens ).process()
 }
