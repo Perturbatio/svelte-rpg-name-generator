@@ -39,7 +39,6 @@ test( 'User settings get restored if missing', () => {
           version: 0,
       }
     setUserSettings( settings )
-    settings = null
     settings = getUserSettings()
     expect( settings.darkMode ).toBe( false )
     expect( settings.pattern ).toBe( 'fl' )
