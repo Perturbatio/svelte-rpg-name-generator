@@ -1,5 +1,4 @@
 import { writable } from 'svelte-persistent-store/local'
-import { onDestroy } from 'svelte'
 
 // increment each time something changes to help migration of future settings
 export const SETTINGS_VERSION = 2;
@@ -24,14 +23,11 @@ export function getUserSettings() {
             result = JSON.parse( settings )
             if (result.version) {
                 versionNumber = parseInt(result.version, 10) // for future use
-                if (versionNumber !== SETTINGS_VERSION){
-                    console.log(`userSettings is a different version (${versionNumber}) from the current settings version (${SETTINGS_VERSION})`)
-                }
             }
         }
     } )
 
-    onDestroy( unsubscribe )
+    unsubscribe()
 
     return result
 }
@@ -57,7 +53,7 @@ function upgradeSettings(settings) {
             delete settings[property];
         }
     } )
-
+    settings.version = defaultSettings.version;
     return settings;
 }
 
