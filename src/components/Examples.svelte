@@ -38,7 +38,7 @@ ${space}
 	"brand"|"dag"|"dom"|"dren"|"eg"|"ei"|"eir"|"erl"|"far"|"fast"|
 	"folk"|"gal"|"gaut"|"geir"|"jar"|"jarl"|"joalf"|"joar"|"jofur"|
 	"leif"|"leik"|"lif"|"lod"|"lom"|"mag"|"mor"|"mun"|"nar"|"ner"|
-	"od"|"odd"|"orn"|"ott"|"rein"|"run"|"sax"|"sig"|"skar"|
+	"od"|"odd"|"orn"|"ott"|"rein"|"run"|"sax"|"sig"|"skar"|"tor"|"thor"|
 	"ulf"|"val"|"van"|"var"
 )(
 	"an"|"gor"|"goth"|"grin"|"ginn"|"dimarr"|"arr"|"fill"|"wold"|
