@@ -1,7 +1,7 @@
 <script>
 	export let names;
 </script>
-<div class="name-list" data-testid="name-list">
+<div class="name-list" data-testid="name-list" aria-live="assertive">
 	{#each names as name}
 		<div class="item">
 			{name}

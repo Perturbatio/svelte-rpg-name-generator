@@ -5,14 +5,14 @@
 	let examples = [
 		// {title: 'depth test', pattern: 'fl(c|(vv|(c|v)))'},
 		// {title: 'sub test', pattern: '"test"(c|v)'},
-		{ title: 'Simple name', pattern: 'cvS' },
-		{ title: 'Simple names', pattern: 'ysv (f|y)sv' },
-		{ title: 'Alternating string endings', pattern: 'cvSv|c"ni"|"ane"|"nia"|"ellia"' },
-		{ title: 'Optional strings', pattern: '"Illy"|"Al"Vcv' },
-		{ title: 'Elf Female', pattern: 'fl' },
-		{ title: 'Exotic', pattern: 'fc h\'Vl' },
-		{ title: 'Exotic 2', pattern: 'fc hw\'Vl' },
-		{ title: 'Exotic 3', pattern: 'a|fc hw\'Vl' },
+		{title: 'Simple name', pattern: 'cvS'},
+		{title: 'Simple names', pattern: 'ysv (f|y)sv'},
+		{title: 'Optional strings', pattern: '("Illy"|"Al")Vcv'},
+		{title: 'Alternating string endings', pattern: 'cvSv|c("ni"|"ane"|"nia"|"ellia")'},
+		{title: 'Elf Female', pattern: 'fl'},
+		{title: 'Exotic', pattern: 'fc h\'Vl'},
+		{title: 'Exotic 2', pattern: 'fc hw\'Vl'},
+		{title: 'Exotic 3', pattern: 'a|fc hw\'Vl'},
 		{
 			title: 'Dwarven',
 			pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
@@ -64,9 +64,15 @@ ${space}
 		},
 		{
 			title: 'Reptilian names',
-			pattern: `(s|S|"")w("ss"|"sss"|"sh"|"ssh"|"sna"|"sne"|"sse"|"nass")(""|""|""|"ha"|"saur")`
+			pattern: `(s|S|"")w("ss"|"sss"|"sh"|"ssh"|"sna"|"sne"|"sse"|"nass")(""|""|""|"ha"|"saros")`
 		}
 	]
+
+	function switchPattern(newPattern) {
+		pattern = newPattern
+		document.body.blur()
+	}
+
 </script>
 
 <h2>
@@ -74,23 +80,37 @@ ${space}
 </h2>
 <ul class="examples" data-testid="example-list">
 	{#each examples as example, index}
-		<li class="item">
-			<button on:click={() => (pattern = example.pattern)} title={example.pattern} data-testid={`example-item-${index}`}>{example.title}</button>
+		<li class="item" class:active={pattern === example.pattern}>
+			<button on:click={() => switchPattern(example.pattern)} title={example.pattern}
+					data-testid={`example-item-${index}`}>{example.title}</button>
 		</li>
 	{/each}
 </ul>
 
 <style lang="scss">
-.examples {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-	margin: 0 0 2rem;
+	.examples {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 0 0 2rem;
 
-	.item {
-		margin: 0 0.5rem;
-		list-style: none;
+		.item {
+			margin: 0 0.5rem;
+			list-style: none;
+		}
+
 	}
-}
+
+	html body ul.examples li.item.active button {
+		border: #3378b5 1px solid;
+		border-radius: 0;
+		outline: #4944b5 1px solid;
+	}
+
+	html body.dark-mode ul.examples li.item.active button {
+		border: #81b548 1px solid;
+		border-radius: 0;
+		outline: #b5a900 1px solid;
+	}
 
 </style>
