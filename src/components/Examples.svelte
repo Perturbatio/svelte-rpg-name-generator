@@ -51,7 +51,7 @@ ${space}
 			pattern: `(
 	"Ald"|"Asf"|"As"|"Ast"|
 	"Be"|"Berg"|"Brin"|"Dag"|"Dal"|
-	"Ed"|"Eil"|"Er"|"Eyd"|"Fre"|"Fri"|"Est"|
+	"Ed"|"El"|"Eld"|"Eil"|"Er"|"Eyd"|"Fre"|"Fri"|"Est"|
 	"Gei"|"Ger"|"Grim"|"Gud"|"Gund"|"Gunn"|"Hal"|"Hall"|"Hel"|
 	"Hild"|"Hol"|"In"|"Ingi"|"Ing"|"Lif"|"Lin"|"Kel"|
 	"Rag"|"Ru"|"Brun"|"Sal"|"Sig"|"Sol"|"Thor"|"Ulf"|"Una"|
@@ -61,6 +61,10 @@ ${space}
 	"la"|"na"|"if"|"da"|"rild"|"her"|"run"|"ra"|"dora"|
 	"ga"|"ma"|"a"|"veig"|"leif"
 )`
+		},
+		{
+			title: 'Reptilian names',
+			pattern: `(s|S|"")w("ss"|"sss"|"sh"|"ssh"|"sna"|"sne"|"sse"|"nass")(""|""|""|"ha"|"saur")`
 		}
 	]
 </script>
