@@ -26,20 +26,6 @@ test( 'enforceNumericConstraints restricts to max value', async() => {
     expect( input ).toHaveValue( 100 )
 } )
 
-test( 'enforceNumericConstraints returns a destroy method', () => {
-    let input = document.createElement( 'INPUT' )
-    let result
-    input.type = 'number'
-    input.setAttribute( 'min', "1" )
-    input.setAttribute( 'max', "10" )
-    input.setAttribute( 'value', "10" )
-    document.body.appendChild( input )
-    result = enforceNumericConstraints( input )
-
-    expect( typeof result ).toBe( 'object' )
-    expect( typeof result.destroy ).toBe( 'function' )
-} )
-
 test( 'enforceNumericConstraints returns an invokable destroy method', () => {
     let input = document.createElement( 'INPUT' )
     let result
