@@ -64,7 +64,10 @@ ${space}
 		},
 		{
 			title: 'Reptilian names',
-			pattern: `(s|S|"")w("ss"|"sss"|"sh"|"ssh"|"sna"|"sne"|"sse"|"nass")(""|""|""|"ha"|"saros")`
+			pattern: `(s|S|"")w
+("ss"|"sss"|"sh"|"ssh"|"sna"|"sne"|"sse"|"nass"|"fas"|"shafa")
+(""|""|""|"ha"|"saros"|"sauros"|"lass"|"asa"|"azha")
+`
 		}
 	]
 
