@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import { tokenTypes } from './tokenizer/tokenTypes'
 import {rand} from './helpers/random'
 
