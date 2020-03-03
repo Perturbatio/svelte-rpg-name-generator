@@ -84,7 +84,7 @@ ${space}
 <ul class="examples" data-testid="example-list">
 	{#each examples as example, index}
 		<li class="item" class:active={pattern === example.pattern}>
-			<button on:click={() => switchPattern(example.pattern)} title={example.pattern}
+			<button on:click={() => switchPattern(example.pattern)} title={example.title}
 					data-testid={`example-item-${index}`}>{example.title}</button>
 		</li>
 	{/each}

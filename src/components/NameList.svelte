@@ -1,10 +1,22 @@
 <script>
-	import {blur} from 'svelte/transition'
+	// import {blur} from 'svelte/transition'
+	import {blur} from '../transitions/blur'
 	export let names;
+	function beforeTransition(node){
+		node.classList.add('transitioning')
+	}
+	function afterTransition(node){
+		node.classList.remove('transitioning')
+	}
 </script>
 <div class="name-list" data-testid="name-list" aria-live="assertive">
 	{#each names as name}
-		<div class="item" transition:blur={{duration: 500, amount: 200}}>
+		<div class="item" transition:blur={{
+			duration: 500,
+			amount: 200,
+			onStart: beforeTransition,
+			onEnd: afterTransition
+		}}>
 			{name}
 		</div>
 	{/each}
@@ -30,7 +42,7 @@
 		}
 	}
 	// change colour of transitioning items
-	:global(.name-list .item[style^="animation"]) {
+	:global(.name-list .item.transitioning) {
 		color: #ff4921;
 	}
 </style>
