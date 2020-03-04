@@ -1,21 +1,13 @@
 <script>
-	// import {blur} from 'svelte/transition'
-	import {blur} from '../transitions/blur'
+	import {blur} from 'svelte/transition'
 	export let names;
-	function beforeTransition(node){
-		node.classList.add('transitioning')
-	}
-	function afterTransition(node){
-		node.classList.remove('transitioning')
-	}
+
 </script>
 <div class="name-list" data-testid="name-list" aria-live="assertive">
 	{#each names as name}
 		<div class="item" transition:blur={{
 			duration: 500,
-			amount: 200,
-			onStart: beforeTransition,
-			onEnd: afterTransition
+			amount: 800
 		}}>
 			{name}
 		</div>
@@ -41,8 +33,8 @@
 			grid-template-columns: repeat(4, 1fr);
 		}
 	}
-	// change colour of transitioning items
-	:global(.name-list .item.transitioning) {
+	// change colour of animating items
+	:global(.name-list .item[style^="animation"]) {
 		color: #ff4921;
 	}
 </style>

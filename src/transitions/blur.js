@@ -6,6 +6,7 @@ export function blur(node, { delay = 0, duration = 400, easing: easing$1 = cubic
     const f = style.filter === 'none' ? '' : style.filter;
     const od = target_opacity * (1 - opacity);
 
+    // chrome doesn't always fire the end events (boo)
     node.addEventListener("animationstart", () => {
         onStart(node)
     });
