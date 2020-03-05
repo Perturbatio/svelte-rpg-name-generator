@@ -8,14 +8,17 @@
 		{title: 'Simple name', pattern: 'cvS'},
 		{title: 'Simple names', pattern: 'ysv (f|y)sv'},
 		{title: 'Optional strings', pattern: '("Illy"|"Al")Vcv'},
-		{title: 'Alternating string endings', pattern: 'cvSv|c("ni"|"ane"|"nia"|"ellia")'},
+		{title: 'Alternating values', pattern: 'cvS(v|"")("ni"|"ane"|"nia"|"ellia")(c|"")'},
 		{title: 'Elf Female', pattern: 'fl'},
 		{title: 'Exotic', pattern: 'fc h\'Vl'},
 		{title: 'Exotic 2', pattern: 'fc hw\'Vl'},
 		{title: 'Exotic 3', pattern: 'a|fc hw\'Vl'},
+		{title: 'Exotic 4', pattern: 'cvw hw\'("s"|"m"|"h"|"j")vS'},
 		{
 			title: 'Dwarven',
-			pattern: `(c|"")vs("grim"|"vald"|"wold"|"ven"|"grith"|"kili"|"dorth")
+			pattern: `(c|"")vs(
+"dorth"|"grim"|"grid"|"grith"|"kili"|"ven"|"vald"|"var"|"vard"|"wold"
+)
 ${space}
 (
 "Stone"|"Gold"|"Iron"|"Copper"|
