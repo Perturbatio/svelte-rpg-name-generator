@@ -5,10 +5,7 @@
 </script>
 <div class="name-list" data-testid="name-list" aria-live="assertive">
 	{#each names as name}
-		<div class="item" transition:blur={{
-			duration: 500,
-			amount: 800
-		}}>
+		<div class="item">
 			{name}
 		</div>
 	{/each}
