@@ -1,5 +1,4 @@
 <script>
-	import {blur} from 'svelte/transition'
 	export let names;
 
 </script>
