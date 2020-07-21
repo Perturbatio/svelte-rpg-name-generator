@@ -16,7 +16,7 @@ const defaultSettings = {
 const userSettings = writable( 'user_settings', JSON.stringify( defaultSettings ) )
 
 export function getUserSettings() {
-    let result = {}
+    let result = {};
     let versionNumber = 0;
     let unsubscribe = userSettings.subscribe( settings => {
         if (settings) {
