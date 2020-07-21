@@ -1,4 +1,4 @@
-import { writable } from 'svelte-persistent-store/local'
+import { writable } from 'svelte-persistent-store/dist/local'
 
 // increment each time something changes to help migration of future settings
 export const SETTINGS_VERSION = 2;
