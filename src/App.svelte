@@ -1,9 +1,10 @@
 <script>
-	import { NotificationDisplay, notifier } from '@beyonk/svelte-notifications'
-	import { onMount, tick } from 'svelte'
+	import {NotificationDisplay, notifier} from '@beyonk/svelte-notifications'
+	import {onMount, tick} from 'svelte'
+	import TokenEditor from './components/TokenEditor.svelte'
 
-	import { getUserSettings, setUserSettings } from './stores/userSettings.store'
-	import { generateName, tokenDescriptions } from './NameGenerator.js'
+	import {getUserSettings, setUserSettings} from './stores/userSettings.store'
+	import {generateName, tokenDescriptions} from './NameGenerator.js'
 	import DarkMode from './components/DarkMode.svelte'
 	import PatternEditor from './components/PatternEditor.svelte'
 	import NameList from './components/NameList.svelte'
@@ -20,6 +21,8 @@
 	let notification
 	let names = []
 	let patternUrlInput
+	let tokenEditorVisible = false
+
 	//------------------[ REACTIVE PROPS ]------------------//
 
 	/**
@@ -29,14 +32,14 @@
 		success: (darkMode) ? '#fff' : '#7a9a74',
 		warning: '#f0ad4e',
 		info: '#5bc0de',
-		default: '#aaa', // relates to simply '.show()'
+		default: '#aaa' // relates to simply '.show()'
 	}
 	// auto generate the pattern uri each time the pattern changes
 	$: patternURI = encodeURI( `${window.location.origin}?pattern=${pattern}` )
 
 	// auto save the user settings each time something changes
 	$: {
-		if (numberToGenerate < 1) {
+		if ( numberToGenerate < 1 ) {
 			numberToGenerate = 1
 		}
 		userSettings.darkMode = darkMode
@@ -45,7 +48,7 @@
 		setUserSettings( userSettings )
 	}
 
-	onMount( async() => {
+	onMount( async () => {
 		await tick()
 		pattern = new URLSearchParams( window.location.search ).get( 'pattern' ) || userSettings.pattern
 	} )
@@ -63,14 +66,14 @@
 	 * @param value
 	 * @returns {string}
 	 */
-	function capitalize(value) {
+	function capitalize( value ) {
 		return value.split( ' ' )
 				.map( v => (v.length) ? v[0].toUpperCase() + v.substr( 1 ).toLowerCase() : '' ).join( ' ' )
 	}
 
-	function generateNamesList(pattern) {
+	function generateNamesList( pattern ) {
 		let result = []
-		for (let i = 0; i < numberToGenerate; i++) {
+		for ( let i = 0; i < numberToGenerate; i++ ) {
 			result.push( capitalize( generateName( pattern ) ) )
 		}
 		return result
@@ -79,19 +82,30 @@
 	function copyPatternUri() {
 		patternUrlInput.select()
 		patternUrlInput.setSelectionRange( 0, patternURI.length )
-		if (document.execCommand( "copy" )) {
+		if ( document.execCommand( 'copy' ) ) {
 			notifier.success( 'Copied!', 1500 )
 		} else {
-			notifier.warning( 'Unable to copy to clipboard, this might be caused by your browser\'s security settings. (you can still copy it manually)', 2500 )
+			notifier.warning(
+					'Unable to copy to clipboard, this might be caused by your browser\'s security settings. (you can still copy it manually)',
+					2500
+			)
 		}
 		patternUrlInput.setSelectionRange( 0, 0 )
 	}
+
+	function toggleTokenEditor() {
+		tokenEditorVisible = !tokenEditorVisible
+	}
 </script>
 
-<NotificationDisplay bind:this={notification} themes={notificationThemes}/>
-<DarkMode bind:enabled={darkMode}/>
-<TokenHelp tokenDescriptions={tokenDescriptions}/>
-<PatternEditor bind:pattern={pattern}/>
+<button on:click={toggleTokenEditor}>Token Editor</button>
+{#if tokenEditorVisible}
+	<TokenEditor />
+{:else}
+	<NotificationDisplay bind:this={notification} themes={notificationThemes}/>
+	<DarkMode bind:enabled={darkMode}/>
+	<TokenHelp tokenDescriptions={tokenDescriptions}/>
+	<PatternEditor bind:pattern={pattern}/>
 
 <button on:click={() => names = generateNamesList(pattern)}>
 	Refresh
@@ -116,6 +130,7 @@
 
 <a id="app-source-link" href="https://github.com/Perturbatio/svelte-rpg-name-generator" title="View the application source (external link)">App source</a>
 
+{/if}
 <style>
 	:global(.dark-mode-toggle) {
 		float: right;
