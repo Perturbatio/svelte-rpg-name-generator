@@ -1,0 +1,285 @@
+/* Apply theme-specific styles with good contrast ratios */
+:root {
+	/* Default light theme variables */
+	--text-primary: #1a202c;
+	--text-secondary: #4a5568;
+	--text-muted: #718096;
+	--text-on-accent: #222;
+	--bg-primary: #222227;
+	--bg-secondary: #f7fafc;
+	--bg-accent: #81b548;
+	--bg-accent-100: #81b548;
+	--bg-accent-200: #6d993d;
+	--bg-accent-300: #5b8033;
+	--bg-accent-400: #486629;
+	--bg-accent-500: #364d1f;
+	--bg-accent-600: #243314;
+	--bg-accent-700: #121a0a;
+	--bg-accent-800: #080d05;
+	--bg-accent-900: #020301;
+	--error: #880101;
+	--bg-error: var(--error);
+	--text-error: var(--error);
+	--text-on-error: #fff;
+
+	/* DaisyUI base color variables for light theme */
+	--base-100: #ffffff;
+	--base-200: #dee1e3;
+	--base-300: #b9bcc4;
+	--base-400: #a5a8b0;
+	--base-500: #909399;
+	--base-600: #7a7d85;
+	--base-700: #6a6c73;
+	--base-800: #5a5b61;
+	--base-850: #48484d;
+	--base-900: #48484d;
+	--base-content: #1a202c;
+}
+
+/* Dark theme variables */
+[data-theme='dark'] {
+	--text-primary: #f7fafc;
+	--text-secondary: #e2e8f0;
+	--text-muted: #a0aec0;
+	--text-on-accent: #222;
+	--bg-primary: #222;
+	--bg-secondary: #222227;
+	--bg-accent: #81b548;
+	--bg-accent-100: #81b548;
+	--bg-accent-200: #6d993d;
+	--bg-accent-300: #5b8033;
+	--bg-accent-400: #486629;
+	--bg-accent-500: #364d1f;
+	--bg-accent-600: #243314;
+	--bg-accent-700: #121a0a;
+	--bg-accent-800: #080d05;
+	--bg-accent-900: #020301;
+
+	/* DaisyUI base color variables for dark theme */
+	--base-100: #1a202c;
+	--base-200: #2d3748;
+	--base-300: #4a5568;
+	--base-content: #f7fafc;
+}
+
+/* DaisyUI base color classes */
+@utility bg-base-100 {
+	background-color: var(--base-100);
+}
+
+@utility bg-base-200 {
+	background-color: var(--base-200);
+}
+
+@utility bg-base-300 {
+	background-color: var(--base-300);
+}
+
+@utility bg-base-400 {
+	background-color: var(--base-400);
+}
+
+@utility bg-base-500 {
+	background-color: var(--base-500);
+}
+
+@utility bg-base-600 {
+	background-color: var(--base-600);
+}
+
+@utility bg-base-700 {
+	background-color: var(--base-700);
+}
+
+@utility bg-base-800 {
+	background-color: var(--base-800);
+}
+
+@utility bg-base-850 {
+	background-color: var(--base-850);
+}
+
+@utility bg-base-900 {
+	background-color: var(--base-900);
+}
+
+/** text classes for each defined colour variable */
+@utility text-base-100 {
+	color: var(--base-100);
+}
+
+@utility text-base-200 {
+	color: var(--base-200);
+}
+
+@utility text-base-300 {
+	color: var(--base-300);
+}
+
+@utility text-base-400 {
+	color: var(--base-400);
+}
+
+@utility text-base-500 {
+	color: var(--base-500);
+}
+
+@utility text-base-600 {
+	color: var(--base-600);
+}
+
+@utility text-base-700 {
+	color: var(--base-700);
+}
+
+@utility text-base-800 {
+	color: var(--base-800);
+}
+
+@utility text-base-850 {
+	color: var(--base-850);
+}
+
+@utility text-base-900 {
+	color: var(--base-900);
+}
+
+@utility text-error {
+	color: var(--error);
+}
+@utility text-on-error {
+	color: var(--text-on-error);
+}
+
+/** background classes for each defined colour variable */
+
+@utility bg-primary {
+	background-color: var(--bg-primary);
+}
+@utility bg-secondary {
+	background-color: var(--bg-secondary);
+}
+
+@utility bg-accent {
+	background-color: var(--bg-accent-100);
+}
+@utility bg-accent-100 {
+	background-color: var(--bg-accent-100);
+}
+@utility bg-accent-200 {
+	background-color: var(--bg-accent-200);
+}
+@utility bg-accent-300 {
+	background-color: var(--bg-accent-300);
+}
+@utility bg-accent-400 {
+	background-color: var(--bg-accent-400);
+}
+@utility bg-accent-500 {
+	background-color: var(--bg-accent-500);
+}
+@utility bg-accent-600 {
+	background-color: var(--bg-accent-600);
+}
+@utility bg-accent-700 {
+	background-color: var(--bg-accent-700);
+}
+@utility bg-accent-800 {
+	background-color: var(--bg-accent-800);
+}
+@utility bg-accent-900 {
+	background-color: var(--bg-accent-900);
+}
+
+@utility bg-error {
+	background-color: var(--bg-error);
+}
+
+/** text classes for each defined colour variable */
+@utility text-primary {
+	color: var(--text-primary);
+}
+@utility text-secondary {
+	color: var(--text-secondary);
+}
+@utility text-muted {
+	color: var(--text-muted);
+}
+@utility text-on-accent {
+	color: var(--text-on-accent);
+}
+@utility text-base-content {
+	color: var(--base-content);
+}
+@utility text-base-100 {
+	color: var(--base-100);
+}
+@utility text-base-200 {
+	color: var(--base-200);
+}
+
+/** border classes for each defined colour variable */
+@utility border-primary {
+	border-color: var(--bg-primary);
+}
+@utility border-secondary {
+	border-color: var(--bg-secondary);
+}
+@utility border-accent {
+	border-color: var(--bg-accent-100);
+}
+@utility border-accent-200 {
+	border-color: var(--bg-accent-200);
+}
+@utility border-accent-300 {
+	border-color: var(--bg-accent-300);
+}
+@utility border-accent-400 {
+	border-color: var(--bg-accent-400);
+}
+@utility border-accent-500 {
+	border-color: var(--bg-accent-500);
+}
+@utility border-accent-600 {
+	border-color: var(--bg-accent-600);
+}
+@utility border-accent-700 {
+	border-color: var(--bg-accent-700);
+}
+@utility border-accent-800 {
+	border-color: var(--bg-accent-800);
+}
+@utility border-accent-900 {
+	border-color: var(--bg-accent-900);
+}
+
+@utility border-base-100 {
+	border-color: var(--base-100);
+}
+@utility border-base-200 {
+	border-color: var(--base-200);
+}
+@utility border-base-300 {
+	border-color: var(--base-300);
+}
+@utility border-base-400 {
+	border-color: var(--base-400);
+}
+@utility border-base-500 {
+	border-color: var(--base-500);
+}
+@utility border-base-600 {
+	border-color: var(--base-600);
+}
+@utility border-base-700 {
+	border-color: var(--base-700);
+}
+@utility border-base-800 {
+	border-color: var(--base-800);
+}
+@utility border-base-850 {
+	border-color: var(--base-850);
+}
+@utility border-base-900 {
+	border-color: var(--base-900);
+}

@@ -1,0 +1,127 @@
+@import 'tailwindcss';
+@import './colours.css';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Ensure good contrast for text elements */
+body {
+	color: var(--text-primary);
+	background-color: var(--bg-primary);
+	@apply mb-32;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--text-primary);
+}
+
+.text-muted {
+	color: var(--text-muted);
+}
+
+/* Improve contrast for form elements */
+input,
+textarea,
+select {
+	color: var(--text-primary);
+	background-color: var(--bg-secondary);
+	border-color: var(--text-muted);
+}
+
+/* Ensure code blocks have good contrast */
+code {
+	color: var(--text-primary);
+	@apply bg-base-300;
+}
+
+/* Ensure links have good contrast */
+a:not(.btn) {
+	color: #3182ce; /* Blue that works in both light and dark modes */
+}
+
+[data-theme='dark'] a:not(.btn) {
+	color: #63b3ed; /* Lighter blue for dark mode */
+}
+
+/* Ensure buttons have good contrast */
+.btn-primary {
+	color: white;
+	/*btn btn-sm btn-primary text-white mt-2 bg-base-300 ml-4 focus:bg-accent-300 hover:bg-accent-300 px-4 py-2 rounded*/
+	@apply bg-primary text-white;
+	&:focus,
+	&:hover {
+		@apply bg-accent-300;
+	}
+}
+[data-theme='dark'] .btn-primary {
+	@apply bg-accent-400;
+	&:focus,
+	&:hover {
+		@apply bg-accent-300;
+	}
+}
+.btn-ghost {
+	@apply text-primary;
+	&:focus,
+	&:hover {
+		@apply bg-base-800;
+	}
+}
+.btn-secondary {
+	color: white;
+}
+
+/* Ensure card content has good contrast */
+.card {
+	background-color: var(--bg-secondary);
+}
+
+.card-title {
+	color: var(--text-primary);
+}
+
+/* Ensure navbar has good contrast */
+.navbar {
+	color: var(--text-primary);
+}
+
+/* Ensure footer has good contrast */
+.footer {
+	position: fixed;
+	bottom: 0;
+	width: 100vw;
+	z-index: 10;
+	color: var(--text-secondary);
+	box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
+}
+
+.text-base-content {
+	color: var(--base-content);
+}
+
+.page-container {
+	@apply mx-auto max-w-9/12;
+}
+
+.pattern-url {
+	@apply mt-4 mb-8 border-b pb-6;
+
+	.label-text {
+		@apply inline-block w-1/12;
+	}
+	input {
+		@apply mr-4 w-5/6;
+	}
+}
+.toasts > .toast .content {
+	@apply py-4;
+}
+[data-theme='dark'] {
+	.toasts .toast .content {
+		color: #000;
+	}
+}
